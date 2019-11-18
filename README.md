@@ -42,7 +42,7 @@ public class TestHandler {
 
 ## Build
 
-- `git clone https://github.com/giosil/wcollections.git`
+- `git clone https://github.com/giosil/multi-rpc.git`
 - `mvn clean install`
 
 ## Contributors
