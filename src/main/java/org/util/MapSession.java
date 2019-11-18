@@ -15,6 +15,7 @@ import org.json.JSON;
 /**
  * Wrapper HttpSession
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class MapSession implements Map
 {

@@ -2,6 +2,7 @@ package org.rpc.client;
 
 import java.util.Collection;
 
+@SuppressWarnings({"rawtypes"})
 public
 interface AsyncCallback
 {

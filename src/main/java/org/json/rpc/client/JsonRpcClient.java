@@ -9,6 +9,7 @@ import org.rpc.client.AsyncCallback;
 import org.rpc.client.RpcClient;
 import org.rpc.client.RpcInvoker;
 
+@SuppressWarnings({"rawtypes"})
 public
 class JsonRpcClient implements RpcClient, AsyncCallback
 {

@@ -10,6 +10,7 @@ import org.util.WUtil;
 /**
  * Utility class to parse JSON text and/or to convert in JSON text.
  */
+@SuppressWarnings({"unchecked"})
 public
 class JSON
 {

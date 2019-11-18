@@ -7,6 +7,7 @@ import org.rpc.util.Base64Coder;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class XmlRpcContentHandler implements ContentHandler
 {

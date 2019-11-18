@@ -22,6 +22,7 @@ import org.soap.rpc.SoapRpcContentHandler;
 import org.util.WUtil;
 import org.xml.rpc.XmlRpcSerializer;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class SoapRpcExecutor implements RpcExecutor
 {

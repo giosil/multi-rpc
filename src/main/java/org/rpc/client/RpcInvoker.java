@@ -1,5 +1,6 @@
 package org.rpc.client;
 
+@SuppressWarnings({"rawtypes"})
 public
 interface RpcInvoker
 {

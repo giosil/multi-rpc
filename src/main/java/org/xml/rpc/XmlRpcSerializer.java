@@ -14,6 +14,7 @@ import java.util.Map;
 import org.rpc.util.Base64Coder;
 import org.rpc.util.Mapable;
 
+@SuppressWarnings({"rawtypes"})
 public
 class XmlRpcSerializer
 {

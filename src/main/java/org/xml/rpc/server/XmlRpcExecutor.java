@@ -17,6 +17,7 @@ import org.util.WUtil;
 import org.xml.rpc.XmlRpcContentHandler;
 import org.xml.rpc.XmlRpcSerializer;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class XmlRpcExecutor implements RpcExecutor
 {

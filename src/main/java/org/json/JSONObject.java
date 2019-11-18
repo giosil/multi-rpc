@@ -100,6 +100,7 @@ import org.rpc.util.Mapable;
  * @author JSON.org
  * @version 2014-04-21
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class JSONObject {
 	/**
 	 * JSONObject.NULL is equivalent to the value that JavaScript calls null,

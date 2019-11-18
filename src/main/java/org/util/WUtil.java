@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import org.rpc.server.RpcUtil;
 import org.rpc.util.Mapable;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class WUtil
 {

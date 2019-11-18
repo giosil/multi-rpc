@@ -15,6 +15,7 @@ import org.json.JSON;
 /**
  * Wrapper HttpServletRequest
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class MapRequest implements Map
 {

@@ -25,6 +25,7 @@ import org.json.JSON;
 /**
  * Wrapper Map
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class WMap implements Map
 {

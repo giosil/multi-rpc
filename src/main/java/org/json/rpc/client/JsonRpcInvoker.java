@@ -30,6 +30,7 @@ import org.rpc.client.HttpRpcClientTransport;
 import org.rpc.client.RpcClientTransport;
 import org.rpc.client.RpcInvoker;
 
+@SuppressWarnings({"rawtypes"})
 public
 class JsonRpcInvoker implements RpcInvoker
 {

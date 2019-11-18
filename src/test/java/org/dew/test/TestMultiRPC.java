@@ -15,6 +15,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+@SuppressWarnings({"rawtypes"})
 public class TestMultiRPC extends TestCase implements RpcServerTransport, RpcClientTransport {
 	// Executor
 	private RpcExecutor rpcExecutor;

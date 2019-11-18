@@ -16,6 +16,7 @@ import org.rpc.client.RpcInvoker;
 import org.soap.rpc.SoapRpcContentHandler;
 import org.xml.rpc.XmlRpcSerializer;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class SoapRpcInvoker implements RpcInvoker
 {

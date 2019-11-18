@@ -54,7 +54,7 @@ package org.apache.xmlrpc;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-
+@SuppressWarnings({"rawtypes"})
 public
 class XmlRpc
 {

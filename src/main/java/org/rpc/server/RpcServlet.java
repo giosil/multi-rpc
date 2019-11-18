@@ -73,6 +73,7 @@ import org.xml.rpc.XmlRpcSerializer;
  *  }
  *  </pre>
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
 {

@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.security.acl.Group;
 import java.util.Map;
 
+@SuppressWarnings({"rawtypes"})
 public
 class SimplePrincipal implements Principal, Serializable
 {

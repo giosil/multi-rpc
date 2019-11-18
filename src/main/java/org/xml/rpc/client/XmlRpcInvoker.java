@@ -15,6 +15,7 @@ import org.rpc.client.RpcInvoker;
 import org.xml.rpc.XmlRpcContentHandler;
 import org.xml.rpc.XmlRpcSerializer;
 
+@SuppressWarnings({"rawtypes"})
 public
 class XmlRpcInvoker implements RpcInvoker
 {

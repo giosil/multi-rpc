@@ -32,6 +32,7 @@ import org.rpc.server.RpcTracer;
 import org.rpc.server.RpcUtil;
 import org.util.WUtil;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class JsonRpcExecutor implements RpcExecutor
 {

@@ -81,6 +81,7 @@ import java.util.Vector;
  * @author JSON.org
  * @version 2014-04-21
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class JSONArray {
 	
 	/**

@@ -62,6 +62,7 @@ import java.util.*;
 import org.rpc.util.Base64Coder;
 import org.xml.rpc.client.XmlRpcInvoker;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class XmlRpcClient
 {

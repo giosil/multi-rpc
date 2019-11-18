@@ -2,6 +2,7 @@ package org.rpc.util;
 
 import java.util.Map;
 
+@SuppressWarnings({"rawtypes"})
 public
 interface Mapable
 {

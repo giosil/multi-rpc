@@ -2,6 +2,7 @@ package org.rpc.client;
 
 import java.util.Map;
 
+@SuppressWarnings({"rawtypes"})
 public
 interface RpcClientTransport
 {

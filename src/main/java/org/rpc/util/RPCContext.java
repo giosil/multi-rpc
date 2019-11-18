@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.*;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class RPCContext
 {

@@ -19,6 +19,7 @@ import org.json.JSON;
 /**
  * Wrapper List
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class WList implements List
 {

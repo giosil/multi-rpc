@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
+@SuppressWarnings({"rawtypes"})
 public
 class SoapRpcContentHandler implements ContentHandler
 {

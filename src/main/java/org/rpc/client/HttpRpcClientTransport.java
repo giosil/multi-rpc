@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class HttpRpcClientTransport implements RpcClientTransport
 {
