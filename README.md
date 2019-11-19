@@ -7,24 +7,31 @@ A simple  library for xml-rpc and json-rpc implementation.
 ### Service
 
 ```java
-public class WebRPC extends org.rpc.server.RpcServlet {
-	
-	public void init() throws javax.servlet.ServletException {
-		rpcExecutor = new org.rpc.server.MultiRpcExecutor();
-		
-		createRpcContex  = true;
-		restful          = true;
-		about            = true;
-		basicAuth        = true;
-		
-		addWebService(new TestHandler(), "TEST", "Test handler");
-	}
-	
-	protected java.security.Principal authenticate(String username, String password) {
-		if(username.equals(password)) return new org.rpc.util.SimplePrincipal(username);
-		return null;
-	}
-	
+import java.security.Principal;
+
+import javax.servlet.ServletException;
+
+import org.rpc.server.*;
+import org.rpc.util.*;
+
+public class WebRPC extends RpcServlet {
+
+  public void init() throws ServletException {
+    rpcExecutor = new MultiRpcExecutor();
+
+    createRpcContex = true;
+    restful         = true;
+    about           = true;
+    basicAuth       = true;
+
+    addWebService(new TestHandler(), "TEST", "Test handler");
+  }
+
+  protected Principal authenticate(String usr, String pwd) {
+    if(usr.equals(pwd)) return new SimplePrincipal(usr);
+    return null;
+  }
+  
 }
 ```
 
@@ -32,11 +39,11 @@ public class WebRPC extends org.rpc.server.RpcServlet {
 
 ```java
 public class TestHandler {
-	
-	public String hello(String name) throws Exception {
-		return "Hello " + name + "!";
-	}
-	
+
+  public String hello(String name) {
+    return "Hello " + name + "!";
+  }
+  
 }
 ```
 
