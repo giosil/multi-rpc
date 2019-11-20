@@ -58,48 +58,48 @@ package org.apache.xmlrpc;
 public
 class XmlRpc
 {
-	public static final String version = "Apache XML-RPC 1.0";
-	
-	private static int maxThreads = 100;
-	
-	static boolean keepalive = false;
-	
-	public static boolean debug = false;
-	
-	public static void setDriver(String driver) throws ClassNotFoundException
-	{
-	}
-	
-	public static void setDriver(Class driver)
-	{
-	}
-	
-	public static void setEncoding(String enc)
-	{
-	}
-	
-	public static int getMaxThreads()
-	{
-		return maxThreads;
-	}
-	
-	public static void setMaxThreads(int maxThreads)
-	{
-		XmlRpc.maxThreads = maxThreads;
-	}
-	
-	public static void setDebug(boolean val)
-	{
-		debug = val;
-	}
-	
-	public static void setKeepAlive(boolean val)
-	{
-		keepalive = val;
-	}
-	
-	public static boolean getKeepAlive()
-	{
-		return keepalive;
-	}
+  public static final String version = "Apache XML-RPC 1.0";
+  
+  private static int maxThreads = 100;
+  
+  static boolean keepalive = false;
+  
+  public static boolean debug = false;
+  
+  public static void setDriver(String driver) throws ClassNotFoundException
+  {
+  }
+  
+  public static void setDriver(Class driver)
+  {
+  }
+  
+  public static void setEncoding(String enc)
+  {
+  }
+  
+  public static int getMaxThreads()
+  {
+    return maxThreads;
+  }
+  
+  public static void setMaxThreads(int maxThreads)
+  {
+    XmlRpc.maxThreads = maxThreads;
+  }
+  
+  public static void setDebug(boolean val)
+  {
+    debug = val;
+  }
+  
+  public static void setKeepAlive(boolean val)
+  {
+    keepalive = val;
+  }
+  
+  public static boolean getKeepAlive()
+  {
+    return keepalive;
+  }
 }

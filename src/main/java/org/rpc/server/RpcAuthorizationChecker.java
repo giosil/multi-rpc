@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletResponse;
 public
 interface RpcAuthorizationChecker
 {
-	public boolean checkAuthorization(String methodName, HttpServletRequest request, HttpServletResponse response);
+  public boolean checkAuthorization(String methodName, HttpServletRequest request, HttpServletResponse response);
 }

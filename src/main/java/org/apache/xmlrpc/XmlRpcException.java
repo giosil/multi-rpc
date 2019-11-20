@@ -65,17 +65,17 @@ package org.apache.xmlrpc;
 public class XmlRpcException
 extends Exception
 {
-	private static final long serialVersionUID = -947230241363532951L;
-	/**
-	 * The fault code of the exception. For servers based on this library, this will always be 0.
-	 * (If there are predefined error codes, they should be in the XML-RPC spec.)
-	 */
-	public final int code;
-	
-	public XmlRpcException (int code, String message)
-	{
-		super(message);
-		this.code = code;
-	}
-	
+  private static final long serialVersionUID = -947230241363532951L;
+  /**
+   * The fault code of the exception. For servers based on this library, this will always be 0.
+   * (If there are predefined error codes, they should be in the XML-RPC spec.)
+   */
+  public final int code;
+  
+  public XmlRpcException (int code, String message)
+  {
+    super(message);
+    this.code = code;
+  }
+  
 }

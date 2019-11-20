@@ -66,121 +66,121 @@ import org.xml.rpc.client.XmlRpcInvoker;
 public
 class XmlRpcClient
 {
-	private XmlRpcInvoker xmlRpcInvoker;
-	
-	public
-	XmlRpcClient(URL url)
-	{
-		xmlRpcInvoker = new XmlRpcInvoker(url);
-		xmlRpcInvoker.setLegacy(true);
-	}
-	
-	public
-	XmlRpcClient(String sURL)
-		throws MalformedURLException
-	{
-		xmlRpcInvoker = new XmlRpcInvoker(sURL);
-		xmlRpcInvoker.setLegacy(true);
-	}
-	
-	public
-	void setBasicAuthentication(String username, String password)
-	{
-		if(username == null || username.length() == 0) {
-			xmlRpcInvoker.getTransport().setHeaders(null);
-		}
-		else {
-			Map mapHeaders = new HashMap(1);
-			mapHeaders.put("Authorization", "Basic " + Base64Coder.encodeString(username + ":" + password));
-			xmlRpcInvoker.getTransport().setHeaders(mapHeaders);
-		}
-	}
-	
-	public
-	URL getURL()
-	{
-		String sURL = xmlRpcInvoker.getURL();
-		if(sURL != null && sURL.length() > 0) {
-			try {
-				return new URL(sURL);
-			}
-			catch(MalformedURLException ex) {
-				return null;
-			}
-		}
-		return null;
-	}
-	
-	public
-	Object execute(String sMethod, Vector oParams)
-		throws XmlRpcException, IOException
-	{
-		Object oResult = null;
-		try {
-			oResult = xmlRpcInvoker.invoke(sMethod, oParams);
-		}
-		catch(IOException ioex) {
-			throw ioex;
-		}
-		catch(XmlRpcException xmlrpcex) {
-			throw xmlrpcex;
-		}
-		catch(Throwable th) {
-			String sMessage = th.getMessage();
-			if(sMessage == null || sMessage.length() == 0) {
-				sMessage = th.toString();
-			}
-			throw new XmlRpcException(0, sMessage);
-		}
-		return oResult;
-	}
-	
-	public
-	void executeAsync(String sMethod, Vector oParams, final AsyncCallback oCallback)
-	{
-		xmlRpcInvoker.invokeAsync(sMethod, oParams, new org.rpc.client.AsyncCallback() {
-			
-			public
-			void handleResult(String sMethod, Collection colArgs, Object result)
-			{
-				oCallback.handleResult(result, getURL(), sMethod);
-			}
-			
-			public
-			void handleError(String sMethod, Collection colArgs, Throwable error)
-			{
-				if(error instanceof Exception) {
-					oCallback.handleError((Exception) error, getURL(), sMethod);
-				}
-				else {
-					oCallback.handleError(new Exception(error), getURL(), sMethod);
-				}
-			}
-		});
-	}
-	
-	/**
-	 * Senza modificare l'interfaccia originaria di XmlRpcClient si utilizza
-	 * il metodo equals per passare la mappa degli headers (java.util.Map) o il time out java.lang.Number)
-	 */
-	public
-	boolean equals(Object obj)
-	{
-		if(obj instanceof Map) {
-			xmlRpcInvoker.getTransport().setHeaders((Map) obj);
-			return false;
-		}
-		else
-		if(obj instanceof Number) {
-			xmlRpcInvoker.getTransport().setTimeOut(((Number) obj).intValue());
-			return false;
-		}
-		return super.equals(obj);
-	}
-	
-	public
-	String toString()
-	{
-		return xmlRpcInvoker.toString();
-	}
+  private XmlRpcInvoker xmlRpcInvoker;
+  
+  public
+  XmlRpcClient(URL url)
+  {
+    xmlRpcInvoker = new XmlRpcInvoker(url);
+    xmlRpcInvoker.setLegacy(true);
+  }
+  
+  public
+  XmlRpcClient(String sURL)
+    throws MalformedURLException
+  {
+    xmlRpcInvoker = new XmlRpcInvoker(sURL);
+    xmlRpcInvoker.setLegacy(true);
+  }
+  
+  public
+  void setBasicAuthentication(String username, String password)
+  {
+    if(username == null || username.length() == 0) {
+      xmlRpcInvoker.getTransport().setHeaders(null);
+    }
+    else {
+      Map mapHeaders = new HashMap(1);
+      mapHeaders.put("Authorization", "Basic " + Base64Coder.encodeString(username + ":" + password));
+      xmlRpcInvoker.getTransport().setHeaders(mapHeaders);
+    }
+  }
+  
+  public
+  URL getURL()
+  {
+    String sURL = xmlRpcInvoker.getURL();
+    if(sURL != null && sURL.length() > 0) {
+      try {
+        return new URL(sURL);
+      }
+      catch(MalformedURLException ex) {
+        return null;
+      }
+    }
+    return null;
+  }
+  
+  public
+  Object execute(String sMethod, Vector oParams)
+    throws XmlRpcException, IOException
+  {
+    Object oResult = null;
+    try {
+      oResult = xmlRpcInvoker.invoke(sMethod, oParams);
+    }
+    catch(IOException ioex) {
+      throw ioex;
+    }
+    catch(XmlRpcException xmlrpcex) {
+      throw xmlrpcex;
+    }
+    catch(Throwable th) {
+      String sMessage = th.getMessage();
+      if(sMessage == null || sMessage.length() == 0) {
+        sMessage = th.toString();
+      }
+      throw new XmlRpcException(0, sMessage);
+    }
+    return oResult;
+  }
+  
+  public
+  void executeAsync(String sMethod, Vector oParams, final AsyncCallback oCallback)
+  {
+    xmlRpcInvoker.invokeAsync(sMethod, oParams, new org.rpc.client.AsyncCallback() {
+      
+      public
+      void handleResult(String sMethod, Collection colArgs, Object result)
+      {
+        oCallback.handleResult(result, getURL(), sMethod);
+      }
+      
+      public
+      void handleError(String sMethod, Collection colArgs, Throwable error)
+      {
+        if(error instanceof Exception) {
+          oCallback.handleError((Exception) error, getURL(), sMethod);
+        }
+        else {
+          oCallback.handleError(new Exception(error), getURL(), sMethod);
+        }
+      }
+    });
+  }
+  
+  /**
+   * Senza modificare l'interfaccia originaria di XmlRpcClient si utilizza
+   * il metodo equals per passare la mappa degli headers (java.util.Map) o il time out java.lang.Number)
+   */
+  public
+  boolean equals(Object obj)
+  {
+    if(obj instanceof Map) {
+      xmlRpcInvoker.getTransport().setHeaders((Map) obj);
+      return false;
+    }
+    else
+    if(obj instanceof Number) {
+      xmlRpcInvoker.getTransport().setTimeOut(((Number) obj).intValue());
+      return false;
+    }
+    return super.equals(obj);
+  }
+  
+  public
+  String toString()
+  {
+    return xmlRpcInvoker.toString();
+  }
 }

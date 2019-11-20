@@ -64,13 +64,13 @@ import java.net.URL;
  */
 public interface AsyncCallback
 {
-	/**
-	 * Call went ok, handle result.
-	 */
-	public void handleResult(Object result, URL url, String method);
-	
-	/**
-	 * Something went wrong, handle error.
-	 */
-	public void handleError(Exception exception, URL url, String method);
+  /**
+   * Call went ok, handle result.
+   */
+  public void handleResult(Object result, URL url, String method);
+  
+  /**
+   * Something went wrong, handle error.
+   */
+  public void handleError(Exception exception, URL url, String method);
 }

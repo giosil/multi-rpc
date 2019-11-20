@@ -68,43 +68,43 @@ import org.xml.rpc.server.XmlRpcExecutor;
 public
 class XmlRpcServer
 {
-	private RpcExecutor rpcExecutor;
-	
-	public XmlRpcServer()
-	{
-		String sOrgRpcServer = System.getProperty("org.rpc.server");
-		if(sOrgRpcServer != null && sOrgRpcServer.equalsIgnoreCase("multi")) {
-			rpcExecutor = new MultiRpcExecutor();
-		}
-		else
-		if(sOrgRpcServer != null && sOrgRpcServer.equalsIgnoreCase("json")) {
-			rpcExecutor = new JsonRpcExecutor();
-		}
-		else
-		if(sOrgRpcServer != null && sOrgRpcServer.equalsIgnoreCase("soap")) {
-			rpcExecutor = new SoapRpcExecutor();
-		}
-		else {
-			rpcExecutor = new XmlRpcExecutor();
-		}
-	}
-	
-	public void addHandler(String handlername, Object handler)
-	{
-		rpcExecutor.addHandler(handlername, handler);
-	}
-	
-	public void removeHandler(String handlername)
-	{
-		rpcExecutor.removeHandler(handlername);
-	}
-	
-	public byte[] execute(InputStream is)
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		
-		rpcExecutor.execute(new RpcIOTransport(is, bos));
-		
-		return bos.toByteArray();
-	}
+  private RpcExecutor rpcExecutor;
+  
+  public XmlRpcServer()
+  {
+    String sOrgRpcServer = System.getProperty("org.rpc.server");
+    if(sOrgRpcServer != null && sOrgRpcServer.equalsIgnoreCase("multi")) {
+      rpcExecutor = new MultiRpcExecutor();
+    }
+    else
+    if(sOrgRpcServer != null && sOrgRpcServer.equalsIgnoreCase("json")) {
+      rpcExecutor = new JsonRpcExecutor();
+    }
+    else
+    if(sOrgRpcServer != null && sOrgRpcServer.equalsIgnoreCase("soap")) {
+      rpcExecutor = new SoapRpcExecutor();
+    }
+    else {
+      rpcExecutor = new XmlRpcExecutor();
+    }
+  }
+  
+  public void addHandler(String handlername, Object handler)
+  {
+    rpcExecutor.addHandler(handlername, handler);
+  }
+  
+  public void removeHandler(String handlername)
+  {
+    rpcExecutor.removeHandler(handlername);
+  }
+  
+  public byte[] execute(InputStream is)
+  {
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    
+    rpcExecutor.execute(new RpcIOTransport(is, bos));
+    
+    return bos.toByteArray();
+  }
 }

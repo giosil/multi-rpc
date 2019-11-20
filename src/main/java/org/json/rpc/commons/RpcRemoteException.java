@@ -21,37 +21,37 @@ import org.rpc.server.RpcExecutor;
 public
 class RpcRemoteException extends RuntimeException
 {
-	private static final long serialVersionUID = 4027118690858678028L;
-	
-	private final int     code;
-	private final String  msg;
-	private final String  data;
-	
-	public RpcRemoteException(String msg)
-	{
-		super(msg);
-		this.code = RpcExecutor.SERVER_ERROR_START;
-		this.msg  = msg;
-		this.data = null;
-	}
-	
-	public RpcRemoteException(int code, String msg, String data)
-	{
-		super(msg);
-		this.code = code;
-		this.msg  = msg;
-		this.data = data;
-	}
-	
-	public int getCode() {
-		return code;
-	}
-	
-	public String getMsg() {
-		return msg;
-	}
-	
-	public String getData() {
-		return data;
-	}
+  private static final long serialVersionUID = 4027118690858678028L;
+  
+  private final int     code;
+  private final String  msg;
+  private final String  data;
+  
+  public RpcRemoteException(String msg)
+  {
+    super(msg);
+    this.code = RpcExecutor.SERVER_ERROR_START;
+    this.msg  = msg;
+    this.data = null;
+  }
+  
+  public RpcRemoteException(int code, String msg, String data)
+  {
+    super(msg);
+    this.code = code;
+    this.msg  = msg;
+    this.data = data;
+  }
+  
+  public int getCode() {
+    return code;
+  }
+  
+  public String getMsg() {
+    return msg;
+  }
+  
+  public String getData() {
+    return data;
+  }
 }
