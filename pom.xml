@@ -8,11 +8,7 @@
   <packaging>jar</packaging>
 
   <name>multi-rpc</name>
-  <url>http://maven.apache.org</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <url>https://github.com/giosil/multi-rpc</url>
 
   <dependencies>
     <dependency>
