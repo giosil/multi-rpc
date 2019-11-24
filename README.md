@@ -53,7 +53,7 @@ public class WebRPC
 ```java
 public class Test {
 
- public String hello(String name) {
+ public String hello(String name){
    return "Hello " + name + "!";
  }
 
