@@ -14,36 +14,46 @@ import javax.servlet.ServletException;
 import org.rpc.server.*;
 import org.rpc.util.*;
 
-public class WebRPC extends RpcServlet {
+public class WebRPC 
+ extends RpcServlet {
 
-  public void init() throws ServletException {
-    rpcExecutor = new MultiRpcExecutor();
+ public void init() 
+  throws ServletException {
 
-    createRpcContex = true;
-    restful         = true;
-    about           = true;
-    basicAuth       = true;
+  rpcExecutor = new MultiRpcExecutor();
 
-    addWebService(new TestHandler(), "TEST", "Test handler");
+  createRpcContex = true;
+  restful         = true;
+  about           = true;
+  basicAuth       = true;
+
+  addWebService(new Test(),
+   "TEST",
+   "Test handler");
+ }
+
+ protected Principal 
+  authenticate(String usr, String pwd){
+
+  if(usr.equals(pwd)){
+   return new SimplePrincipal(usr);
   }
 
-  protected Principal authenticate(String usr, String pwd) {
-    if(usr.equals(pwd)) return new SimplePrincipal(usr);
-    return null;
-  }
-  
+  return null;
+ }
+
 }
 ```
 
 ### Handler
 
 ```java
-public class TestHandler {
+public class Test {
 
-  public String hello(String name) {
-    return "Hello " + name + "!";
-  }
-  
+ public String hello(String name){
+  return "Hello " + name + "!";
+ }
+
 }
 ```
 
