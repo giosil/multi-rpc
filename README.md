@@ -15,12 +15,13 @@ import org.rpc.server.*;
 import org.rpc.util.*;
 
 public class WebRPC 
- extends RpcServlet {
+       extends RpcServlet {
 
  public void init() 
-  throws ServletException {
+        throws ServletException {
 
-  rpcExecutor = new MultiRpcExecutor();
+  rpcExecutor 
+     = new MultiRpcExecutor();
 
   createRpcContex = true;
   restful         = true;
@@ -33,10 +34,12 @@ public class WebRPC
  }
 
  protected Principal 
-  authenticate(String usr, String pwd){
+   authenticate(String usr, 
+                String pwd) {
 
-  if(usr.equals(pwd)){
-   return new SimplePrincipal(usr);
+  if(usr.equals(pwd)) {
+    return 
+      new SimplePrincipal(usr);
   }
 
   return null;
@@ -50,8 +53,8 @@ public class WebRPC
 ```java
 public class Test {
 
- public String hello(String name){
-  return "Hello " + name + "!";
+ public String hello(String name) {
+   return "Hello " + name + "!";
  }
 
 }
