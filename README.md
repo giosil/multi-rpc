@@ -1,6 +1,6 @@
 # Multi-RPC
 
-A simple  library for xml-rpc and json-rpc implementation.
+An easy to use library for xml-rpc, json-rpc and RESTful services implementation.
 
 ## Examples
 
