@@ -60,6 +60,51 @@ public class Test {
 }
 ```
 
+### CORS (Cross-Origin Resource Sharing)
+
+```java
+public class WebRPC 
+       extends RpcServlet {
+  // ...
+  
+  @Override
+  protected
+  void doOptions(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException
+  {
+    // Response to preflight request
+    
+    response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS");
+    response.addHeader("Access-Control-Allow-Origin",  "*");
+    response.addHeader("Access-Control-Allow-Headers", "*");
+    
+    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+  }
+  
+  @Override
+  protected
+  void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException
+  {
+    response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS");
+    response.addHeader("Access-Control-Allow-Origin",  "*");
+    
+    super.doGet(request, response);
+  }
+  
+  @Override
+  protected
+  void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException
+  {
+    response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS");
+    response.addHeader("Access-Control-Allow-Origin",  "*");
+    
+    super.doPost(request, response);
+  }
+}
+```
+
 ## Build
 
 - `git clone https://github.com/giosil/multi-rpc.git`
