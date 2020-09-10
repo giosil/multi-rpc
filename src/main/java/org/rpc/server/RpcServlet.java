@@ -317,18 +317,25 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
     }
     else {
       String sCredentials = null;
-      try{
-        sCredentials = Base64Coder.decodeString(sAuthorization.substring(6));
+      int iSep = -1;
+      if(sAuthorization.startsWith("Bearer")) {
+        sCredentials = sAuthorization.substring(7);
       }
-      catch(Throwable th) {
-        try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
-        return false;
+      else {
+        try{
+          sCredentials = Base64Coder.decodeString(sAuthorization.substring(6));
+        }
+        catch(Throwable th) {
+          try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
+          return false;
+        }
+        iSep = sCredentials.indexOf(':');
+        if(iSep <= 0) {
+          try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
+          return false;
+        }
       }
-      int iSep = sCredentials.indexOf(':');
-      if(iSep <= 0) {
-        try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
-        return false;
-      }
+      // Check cache
       final long currentTimeMillis = System.currentTimeMillis();
       boolean alreadyCached = false;
       final PrincipalExpiryIn principalExpiryIn = boNoCache ? null : (PrincipalExpiryIn) basicCache.get(sCredentials);
@@ -340,7 +347,17 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
           return true;
         }
       }
-      final Principal principal = authenticate(sCredentials.substring(0,iSep), sCredentials.substring(iSep+1));
+      Principal principal = null;
+      if(iSep < 0) {
+        principal = checkToken(sCredentials);
+        if(principal == null) {
+          try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
+          return false;
+        }
+      }
+      else {
+        principal = authenticate(sCredentials.substring(0,iSep), sCredentials.substring(iSep+1));
+      }
       if(principal == null) {
         response.addHeader("WWW-Authenticate", "Basic realm=\"" + basicRealm.replace('"', '\'') + "\"");
         try{ response.sendError(401); } catch(Throwable ignore) {} // Unauthorized
@@ -359,6 +376,12 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
       if(webContext != null) webContext.setUserPrincipal(principal);
     }
     return true;
+  }
+  
+  protected
+  Principal checkToken(String token)
+  {
+    return null;
   }
   
   protected
@@ -480,7 +503,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
     PrintWriter out = response.getWriter();
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>RPCServlet 2.8</title>");
+    out.println("<title>RPCServlet 2.9</title>");
     out.println("</head>");
     out.println("<body>");
     if(detail) {
