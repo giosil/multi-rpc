@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public
 class RpcServletTransport implements RpcServerTransport
 {
+  public static String CONTENT_TYPE_SUFFIX = "";
+  
   protected static final int BUFF_LENGTH = 1024;
   
   protected HttpServletRequest  req;
@@ -105,8 +107,13 @@ class RpcServletTransport implements RpcServerTransport
     throws Exception
   {
     if(boTransEncChunked) {
-      // La specifica del charset e' necessaria in SOAP con client .NET
-      resp.addHeader("Content-Type",      sContentType + "; charset=utf-8");
+      if(CONTENT_TYPE_SUFFIX != null && CONTENT_TYPE_SUFFIX.length() > 0) {
+        resp.addHeader("Content-Type", sContentType + CONTENT_TYPE_SUFFIX);
+      }
+      else {
+        // La specifica del charset e' necessaria in SOAP con client .NET
+        resp.addHeader("Content-Type", sContentType + "; charset=utf-8");
+      }
       resp.addHeader("Transfer-Encoding", "chunked");
       PrintWriter out = resp.getWriter();
       out.write(responseData, 0, responseData.length());
@@ -114,7 +121,7 @@ class RpcServletTransport implements RpcServerTransport
     }
     else {
       byte[] data = responseData.getBytes(resp.getCharacterEncoding());
-      resp.addHeader("Content-Type",   sContentType);
+      resp.addHeader("Content-Type",   sContentType + CONTENT_TYPE_SUFFIX);
       resp.setHeader("Content-Length", String.valueOf(data.length));
       ServletOutputStream os = resp.getOutputStream();
       os.write(data, 0, data.length);
