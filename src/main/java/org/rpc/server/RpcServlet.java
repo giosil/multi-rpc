@@ -58,6 +58,7 @@ import org.xml.rpc.XmlRpcSerializer;
  *         checkSessionREST = false;
  *         restful          = false;
  *         basicAuth        = true;
+ *         encoding         = null; // e.g. "UTF-8", "ISO-8859-1"
  *         
  *         sWSDL_LOCATION   = "http://rpc.service.org*";
  *         
@@ -111,6 +112,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
   protected boolean     restParseDatePar = false;
   protected boolean     basicAuth        = false;
   protected boolean     about            = false;
+  protected String      encoding         = null;
   protected String      basicRealm       = "RPC";
   protected String      sWhiteList       = null;
   protected String      sNoCacheList     = null;
@@ -180,10 +182,10 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
         }
         if(!restCall) {
           if(checkSession || basicAuth) {
-            rpcExecutor.execute(new RpcServletTransport(request, response, this));
+            rpcExecutor.execute(new RpcServletTransport(request, response, encoding, this));
           }
           else {
-            rpcExecutor.execute(new RpcServletTransport(request, response));
+            rpcExecutor.execute(new RpcServletTransport(request, response, encoding));
           }
           return;
         }
@@ -615,7 +617,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
       String httpMethod = request.getMethod();
       if(httpMethod != null && !httpMethod.equalsIgnoreCase("get")) {
         try {
-          RpcServletTransport rpcServletTransport = new RpcServletTransport(request, response);
+          RpcServletTransport rpcServletTransport = new RpcServletTransport(request, response, encoding);
           String[] asRequest = rpcServletTransport.readRequest(null);
           if(asRequest != null && asRequest.length > 1) {
             String sContentType = asRequest[0];
@@ -787,8 +789,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
           responseData = JSON.stringify(oResult);
         }
       }
-      else
-      if(sRES_CONTENT_TYPE.indexOf("js") >= 0) {
+      else if(sRES_CONTENT_TYPE.indexOf("js") >= 0) {
         contentType  = sRES_CONTENT_TYPE;
         responseData = JSON.stringify(oResult);
       }
@@ -803,8 +804,17 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
         responseData = sJSONPCallback + "(" + JavascriptDate.replaceDateTime(responseData) + ");";
       }
       
+      if(encoding != null && encoding.length() > 0) {
+        response.setCharacterEncoding(encoding);
+      }
+      
       byte[] data = responseData.getBytes(response.getCharacterEncoding());
-      response.addHeader("Content-Type",   contentType);
+      if(encoding != null && encoding.length() > 0) {
+        response.addHeader("Content-Type", contentType + "; charset=" + encoding);
+      }
+      else {
+        response.addHeader("Content-Type", contentType);
+      }
       response.setHeader("Content-Length", String.valueOf(data.length));
       
       ServletOutputStream os = response.getOutputStream();

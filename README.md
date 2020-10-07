@@ -27,6 +27,7 @@ public class WebRPC
   restful         = true;
   about           = true;
   basicAuth       = true;
+  encoding        = null; // e.g. "UTF-8", "ISO-8859-1"
 
   addWebService(new Test(),
    "TEST",

@@ -9,5 +9,7 @@ interface RpcServerTransport
   
   public void writeResponse(String sContentType, String responseData, boolean boTransEncChunked) throws Exception;
   
+  public void setEncoding(String encoding);
+  
   public String getEncoding();
 }

@@ -11,19 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 public
 class RpcServletTransport implements RpcServerTransport
 {
-  public static String CONTENT_TYPE_SUFFIX = "";
-  
   protected static final int BUFF_LENGTH = 1024;
   
   protected HttpServletRequest  req;
   protected HttpServletResponse resp;
   protected RpcAuthorizationChecker rac;
+  protected String contentTypeSuffix = "";
   
   public
   RpcServletTransport(HttpServletRequest req, HttpServletResponse resp)
   {
     this.req  = req;
     this.resp = resp;
+  }
+  
+  public
+  RpcServletTransport(HttpServletRequest req, HttpServletResponse resp, String encoding)
+  {
+    this.req  = req;
+    this.resp = resp;
+    if(encoding != null && encoding.length() > 0) {
+      this.resp.setCharacterEncoding(encoding);
+      contentTypeSuffix = "; charset=" + encoding;
+    }
   }
   
   public
@@ -35,8 +45,20 @@ class RpcServletTransport implements RpcServerTransport
   }
   
   public
+  RpcServletTransport(HttpServletRequest req, HttpServletResponse resp, String encoding, RpcAuthorizationChecker rac)
+  {
+    this.req  = req;
+    this.resp = resp;
+    this.rac  = rac;
+    if(encoding != null && encoding.length() > 0) {
+      this.resp.setCharacterEncoding(encoding);
+      contentTypeSuffix = "; charset=" + encoding;
+    }
+  }
+  
+  public
   String[] readRequest(String sContentType)
-    throws Exception
+      throws Exception
   {
     String[] asResult = new String[3];
     InputStream in = null;
@@ -104,14 +126,14 @@ class RpcServletTransport implements RpcServerTransport
   
   public
   void writeResponse(String sContentType, String responseData, boolean boTransEncChunked)
-    throws Exception
+      throws Exception
   {
     if(boTransEncChunked) {
-      if(CONTENT_TYPE_SUFFIX != null && CONTENT_TYPE_SUFFIX.length() > 0) {
-        resp.addHeader("Content-Type", sContentType + CONTENT_TYPE_SUFFIX);
+      if(contentTypeSuffix != null && contentTypeSuffix.length() > 0) {
+        resp.addHeader("Content-Type", sContentType + contentTypeSuffix);
       }
       else {
-        // La specifica del charset e' necessaria in SOAP con client .NET
+        // Required in .NET SOAP client
         resp.addHeader("Content-Type", sContentType + "; charset=utf-8");
       }
       resp.addHeader("Transfer-Encoding", "chunked");
@@ -121,11 +143,23 @@ class RpcServletTransport implements RpcServerTransport
     }
     else {
       byte[] data = responseData.getBytes(resp.getCharacterEncoding());
-      resp.addHeader("Content-Type",   sContentType + CONTENT_TYPE_SUFFIX);
+      resp.addHeader("Content-Type",   sContentType + contentTypeSuffix);
       resp.setHeader("Content-Length", String.valueOf(data.length));
       ServletOutputStream os = resp.getOutputStream();
       os.write(data, 0, data.length);
       os.flush();
+    }
+  }
+  
+  public
+  void setEncoding(String encoding)
+  {
+    if(encoding != null && encoding.length() > 0) {
+      this.resp.setCharacterEncoding(encoding);
+      contentTypeSuffix = "; charset=" + encoding;
+    }
+    else {
+      contentTypeSuffix = "";
     }
   }
   

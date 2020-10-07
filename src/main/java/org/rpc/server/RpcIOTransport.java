@@ -1,7 +1,5 @@
 package org.rpc.server;
 
-import org.rpc.server.RpcServerTransport;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,7 +22,7 @@ class RpcIOTransport implements RpcServerTransport
   
   public
   String[] readRequest(String sContentType)
-    throws Exception
+      throws Exception
   {
     String[] asResult = new String[2];
     try {
@@ -84,7 +82,7 @@ class RpcIOTransport implements RpcServerTransport
   
   public
   void writeResponse(String sContentType, String responseData, boolean boTransEncChunked)
-    throws Exception
+      throws Exception
   {
     PrintWriter out = null;
     try {
@@ -98,6 +96,12 @@ class RpcIOTransport implements RpcServerTransport
   }
   
   public
+  void setEncoding(String encoding)
+  {
+    System.setProperty("file.encoding", encoding);
+  }
+  
+  public
   String getEncoding()
   {
     String sEncoding = null;
@@ -105,12 +109,10 @@ class RpcIOTransport implements RpcServerTransport
     if(sFileEncoding != null && sFileEncoding.startsWith("Cp")) {
       sEncoding = "ISO-8859-1";
     }
-    else
-    if(sFileEncoding != null && sFileEncoding.startsWith("ISO-")) {
+    else if(sFileEncoding != null && sFileEncoding.startsWith("ISO-")) {
       sEncoding = sFileEncoding;
     }
-    else
-    if(sFileEncoding != null && sFileEncoding.startsWith("UTF-")) {
+    else if(sFileEncoding != null && sFileEncoding.startsWith("UTF-")) {
       sEncoding = sFileEncoding;
     }
     else {

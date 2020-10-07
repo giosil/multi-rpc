@@ -100,6 +100,11 @@ public class TestMultiRPC extends TestCase implements RpcServerTransport, RpcCli
   public void writeResponse(String sContentType, String responseData, boolean boTransEncChunked) throws Exception {
     this.sResponseData = responseData;
   }
+  
+  @Override
+  public void setEncoding(String encoding) {
+    System.setProperty("file.encoding", encoding);
+  }
 
   @Override
   public String getEncoding() {
