@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import javax.servlet.ServletConfig;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -464,6 +465,11 @@ class WMap implements Map
   
   public java.sql.Date getSQLDate(Object key, Object oDefault) {
     return WUtil.toSQLDate(get(key), oDefault);
+  }
+  
+  public java.sql.Date getSQLDate(Object key, Object oDefault, Object oTime) {
+    java.sql.Date result = WUtil.toSQLDate(get(key), oDefault);
+    return WUtil.setTime(result, oTime);
   }
   
   public java.sql.Time getSQLTime(Object key) {
