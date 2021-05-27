@@ -18,7 +18,7 @@ import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -278,9 +278,17 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
     HttpSession httpSession = request.getSession(false);
     if(httpSession == null) {
       if(basicAuth) {
-        response.addHeader("WWW-Authenticate", "Basic realm=\"" + basicRealm + "\"");
-        try{ response.sendError(401); } catch(Throwable ignore) {} // Unauthorized
-        return false;
+        // Is it a lost session?
+        String jsessionId = getCookieValue(request, "JSESSIONID");
+        if(jsessionId != null && jsessionId.length() > 0) {
+          try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
+          return false;
+        }
+        else {
+          response.addHeader("WWW-Authenticate", "Basic realm=\"" + basicRealm + "\"");
+          try{ response.sendError(401); } catch(Throwable ignore) {} // Unauthorized
+          return false;
+        }
       }
       try{ response.sendError(403); } catch(Throwable ignore) {} // Forbidden
       return false;
@@ -653,8 +661,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
       if(listPathParams.size() >= 0 && mapParameters.size() == 0) {
         boDefMethodPath = true;
       }
-      else
-      if(listPathParams.size() == 0 && mapParameters.size() == 1 && !asDefMethods[0].equals(asDefMethods[1])) {
+      else if(listPathParams.size() == 0 && mapParameters.size() == 1 && !asDefMethods[0].equals(asDefMethods[1])) {
         boDefMethodPath = true;
       }
       else {
@@ -718,18 +725,15 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
       asResult[0] = sDEF_HTTP_GET_METHOD;
       asResult[1] = sDEF_HTTP_FIND_METHOD;
     }
-    else
-    if(sParHttpMethod.equalsIgnoreCase("post")) {
+    else if(sParHttpMethod.equalsIgnoreCase("post")) {
       asResult[0] = sDEF_HTTP_POST_METHOD;
       asResult[1] = sDEF_HTTP_POST_METHOD;
     }
-    else
-    if(sParHttpMethod.equalsIgnoreCase("put")) {
+    else if(sParHttpMethod.equalsIgnoreCase("put")) {
       asResult[0] = sDEF_HTTP_PUT_METHOD;
       asResult[1] = sDEF_HTTP_PUT_METHOD;
     }
-    else
-    if(sParHttpMethod.equalsIgnoreCase("delete")) {
+    else if(sParHttpMethod.equalsIgnoreCase("delete")) {
       asResult[0] = sDEF_HTTP_DEL_METHOD;
       asResult[1] = sDEF_HTTP_REM_METHOD;
     }
@@ -755,8 +759,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
         params.add(oValue);
       }
     }
-    else
-    if(mapParameters.size() > 0) {
+    else if(mapParameters.size() > 0) {
       params.add(mapParameters);
     }
     return params;
@@ -904,6 +907,22 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
       }
     }
     return sValue;
+  }
+  
+  protected
+  String getCookieValue(HttpServletRequest request, String coockieName)
+  {
+    Cookie[] cookies = request.getCookies();
+    if(cookies == null || cookies.length == 0) {
+      return null;
+    }
+    for(int i = 0; i < cookies.length; i++) {
+      String cookieName = cookies[i].getName();
+      if(cookieName != null && cookieName.equalsIgnoreCase(coockieName)) {
+        return cookies[i].getValue();
+      }
+    }
+    return null;
   }
   
   protected
