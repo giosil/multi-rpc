@@ -1,5 +1,6 @@
 package org.json;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import org.util.WUtil;
 public
 class JSON
 {
+  public static String BYTEARRAY_PREFIX = "[B@";
+  public static DateFormat DATE_FORMAT  = null;
+  
   public static
   void setDefaultTimeZone(TimeZone timeZone)
   {

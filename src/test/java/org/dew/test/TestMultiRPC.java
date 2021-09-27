@@ -15,8 +15,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-@SuppressWarnings({"rawtypes"})
-public class TestMultiRPC extends TestCase implements RpcServerTransport, RpcClientTransport {
+public 
+class TestMultiRPC extends TestCase implements RpcServerTransport, RpcClientTransport 
+{
   // Executor
   private RpcExecutor rpcExecutor;
   // Buffer
@@ -112,6 +113,7 @@ public class TestMultiRPC extends TestCase implements RpcServerTransport, RpcCli
   }
 
   // RpcClientTransport ---------------------------------------------
+  @SuppressWarnings("rawtypes")
   @Override
   public void setHeaders(Map headers) {
   }
@@ -129,6 +131,7 @@ public class TestMultiRPC extends TestCase implements RpcServerTransport, RpcCli
     return sResponseData;
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   public String call(String requestData, Map headers) throws Exception {
     this.sRequestData = requestData;
