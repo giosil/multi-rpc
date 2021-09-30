@@ -62,13 +62,13 @@ public class Test {
 ### RESTful call
 
 ```
-http://localhost/webapp/rpc/TEST.hello/World
+http://localhost:8080/webapp/rpc/TEST.hello/World
 ```
 
 ### JSONP (JSON with Padding) call
 
 ```
-http://localhost/webapp/rpc/TEST.hello/World?callback=handleResponse
+http://localhost:8080/webapp/rpc/TEST.hello/World?callback=handleResponse
 ```
 
 ### CORS (Cross-Origin Resource Sharing)
