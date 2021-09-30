@@ -1,6 +1,6 @@
 # Multi-RPC
 
-An easy to use library for xml-rpc, json-rpc and RESTful services implementation.
+An easy to use library for json-rpc, xml-rpc, SOAP and RESTful/JSONP services implementation.
 
 ## Examples
 
@@ -35,12 +35,10 @@ public class WebRPC
  }
 
  protected Principal 
-   authenticate(String usr, 
-                String pwd) {
+   authenticate(String usr, String pwd) {
 
   if(usr.equals(pwd)) {
-    return 
-      new SimplePrincipal(usr);
+    return new SimplePrincipal(usr);
   }
 
   return null;
@@ -54,11 +52,23 @@ public class WebRPC
 ```java
 public class Test {
 
- public String hello(String name){
+ public String hello(String name) {
    return "Hello " + name + "!";
  }
 
 }
+```
+
+### RESTful call
+
+```
+http://localhost/webapp/rpc/TEST.hello/World
+```
+
+### JSONP (JSON with Padding) call
+
+```
+http://localhost/webapp/rpc/TEST.hello/World?callback=handleResponse
 ```
 
 ### CORS (Cross-Origin Resource Sharing)
@@ -137,12 +147,29 @@ public class Test {
   
   public static void main(String[] args) {
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("date", "1974-11-19");
+    map.put("name",      "Clark Kent");
+    map.put("birthdate", "1974-11-19");
     
+    List<Object> list = new ArrayList<Object>();
+    list.add("3");
+    
+    Map<String, Object> struct = new HashMap<String, Object>();
+    struct.put("person", map);
+    
+    // Wrapped Map 
     WMap wmap = new WMap(map);
+    Date date = wmap.getSQLDate("birthdate");
+    System.out.println("wmap.getSQLDate(\"birthdate\") -> " + date);
     
-    Date date = wmap.getSQLDate("date");
-    System.out.println(date);
+    // Wrapped List 
+    WList wlist = new WList(list);
+    int val = wlist.getInt(0);
+    System.out.println("wlist.getInt(0) -> " + val);
+    
+    // Wrapped Structure 
+    WStruct wstruct = new WStruct(struct);
+    String name = wstruct.getString("person.name");
+    System.out.println("wstruct.getString(\"person.name\") -> " + name);
   }
   
 }
