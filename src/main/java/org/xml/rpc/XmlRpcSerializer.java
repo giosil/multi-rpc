@@ -3,9 +3,12 @@ package org.xml.rpc;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import java.time.ZoneId;
+
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,7 +17,6 @@ import java.util.Map;
 import org.rpc.util.Base64Coder;
 import org.rpc.util.Mapable;
 
-@SuppressWarnings({"rawtypes"})
 public
 class XmlRpcSerializer
 {
@@ -69,15 +71,15 @@ class XmlRpcSerializer
     }
     else
     if(object instanceof Map) {
-      return serializeMap((Map) object, boLegacy);
+      return serializeMap((Map<?, ?>) object, boLegacy);
     }
     else
     if(object instanceof Map.Entry) {
-      return serialize(((Map.Entry) object).getValue(), boLegacy);
+      return serialize(((Map.Entry<?, ?>) object).getValue(), boLegacy);
     }
     else
     if(object instanceof Collection) {
-      return serializeCollection((Collection) object, boLegacy);
+      return serializeCollection((Collection<?>) object, boLegacy);
     }
     else
     if(object instanceof byte[]) {
@@ -93,7 +95,7 @@ class XmlRpcSerializer
     }
     else
     if(object instanceof Mapable) {
-      Map map = ((Mapable) object).toMap();
+      Map<String, Object> map = ((Mapable) object).toMap();
       return map != null ? serializeMap(map, boLegacy) : "<value><nil/></value>";
     }
     else
@@ -135,7 +137,7 @@ class XmlRpcSerializer
   String normalizeString(String sValue)
   {
     if(sValue == null) return "null";
-    StringBuffer sbResult = new StringBuffer(sValue.length());
+    StringBuilder sbResult = new StringBuilder(sValue.length());
     int iLength = sValue.length();
     for(int i = 0; i < iLength; i++) {
       char c = sValue.charAt(i);
@@ -157,13 +159,13 @@ class XmlRpcSerializer
   }
   
   private static
-  String serializeMap(Map map, boolean boLegacy)
+  String serializeMap(Map<?, ?> map, boolean boLegacy)
   {
-     StringBuffer sb = new StringBuffer(map.size() * 50 + 50);
+    StringBuilder sb = new StringBuilder(map.size() * 50 + 50);
     sb.append("<value><struct>");
-    Iterator iterator = map.entrySet().iterator();
+    Iterator<? extends Map.Entry<?, ?>> iterator = map.entrySet().iterator();
     while(iterator.hasNext()) {
-      Map.Entry entry = (Map.Entry) iterator.next();
+      Map.Entry<?, ?> entry = iterator.next();
       Object oKey   = entry.getKey();
       Object oValue = entry.getValue();
       if(oValue != null) {
@@ -176,8 +178,7 @@ class XmlRpcSerializer
           sb.append("</member>");
         }
       }
-      else
-      if(!boLegacy) {
+      else if(!boLegacy) {
         sb.append("<member><name>");
         sb.append(oKey.toString());
         sb.append("</name><value><nil/></value></member>"); // Estensione
@@ -188,11 +189,11 @@ class XmlRpcSerializer
   }
   
   private static
-  String serializeCollection(Collection collection, boolean boLegacy)
+  String serializeCollection(Collection<?> collection, boolean boLegacy)
   {
-     StringBuffer sb = new StringBuffer(collection.size() * 20 + 50);
+    StringBuilder sb = new StringBuilder(collection.size() * 20 + 50);
     sb.append("<value><array><data>");
-    Iterator iterator = collection.iterator();
+    Iterator<?> iterator = collection.iterator();
     while(iterator.hasNext()) {
       sb.append(serialize(iterator.next(), boLegacy));
     }
@@ -204,7 +205,7 @@ class XmlRpcSerializer
   String serializeArray(Object array, boolean boLegacy)
   {
     int length = Array.getLength(array);
-     StringBuffer sb = new StringBuffer(length * 20 + 50);
+    StringBuilder sb = new StringBuilder(length * 20 + 50);
     sb.append("<value><array><data>");
     for(int i = 0; i < length; i++) {
       sb.append(serialize(Array.get(array, i), boLegacy));
@@ -216,9 +217,9 @@ class XmlRpcSerializer
   private static
   String serializeBean(Object bean, boolean boLegacy)
   {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     sb.append("<value><struct>");
-    Class klass  = bean.getClass();
+    Class<?> klass  = bean.getClass();
     
     String sClassName = klass.getName();
     boolean boValue   = sClassName.indexOf("CodeAndDesc") >= 0 || sClassName.indexOf("NamedParam") >= 0;
@@ -244,16 +245,14 @@ class XmlRpcSerializer
               }
             }
           }
-          else
-          if(name.startsWith("is")) {
+          else if(name.startsWith("is")) {
             key = name.substring(2);
           }
           if(key.length() > 0 && key.charAt(0) < 97 && method.getParameterTypes().length == 0) {
             if(key.length() == 1) {
               key = key.toLowerCase();
             }
-            else
-            if(!Character.isUpperCase(key.charAt(1))) {
+            else if(!Character.isUpperCase(key.charAt(1))) {
               key = key.substring(0, 1).toLowerCase() + key.substring(1);
             }
             Object oValue = method.invoke(bean,(Object[]) null);
@@ -282,17 +281,14 @@ class XmlRpcSerializer
       cal = Calendar.getInstance();
       cal.setTimeInMillis(((java.util.Date) oDateTime).getTime());
     }
-    else
-    if(oDateTime instanceof java.util.Calendar) {
+    else if(oDateTime instanceof java.util.Calendar) {
       cal = (Calendar) oDateTime;
     }
-    else // 1.8+
-    if(oDateTime instanceof java.time.LocalDate) {
+    else if(oDateTime instanceof java.time.LocalDate) {
       cal = Calendar.getInstance();
       cal.setTimeInMillis(((java.time.LocalDate) oDateTime).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
     }
-    else // 1.8+
-    if(oDateTime instanceof java.time.LocalDateTime) {
+    else if(oDateTime instanceof java.time.LocalDateTime) {
       cal = Calendar.getInstance();
       cal.setTimeInMillis(((java.time.LocalDateTime) oDateTime).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
     }
@@ -312,12 +308,10 @@ class XmlRpcSerializer
     if(iYear < 10) {
       sYear = "000" + sYear;
     }
-    else
-    if(iYear < 100) {
+    else if(iYear < 100) {
       sYear = "00" + sYear;
     }
-    else
-    if(iYear < 1000) {
+    else if(iYear < 1000) {
       sYear = "0" + sYear;
     }
     return sYear + sMonth + sDay + "T" + sHour + ":" + sMin + ":" + sSec;
