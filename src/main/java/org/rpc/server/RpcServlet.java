@@ -379,7 +379,7 @@ class RpcServlet extends HttpServlet implements RpcAuthorizationChecker
         final Map.Entry entry = (Map.Entry) iterator.next();
         final PrincipalExpiryIn firstPrincipalExpiryIn = (PrincipalExpiryIn) entry.getValue();
         if(firstPrincipalExpiryIn.expiryIn < currentTimeMillis) {
-          iterator.remove();
+          try{ iterator.remove(); } catch(Throwable ignore) {}
         }
       }
       WebContext webContext = RPCContext.getContext();
