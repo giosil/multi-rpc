@@ -1,0 +1,49 @@
+# WDemo - WSO2
+
+## Install with Docker
+
+- `docker pull wso2/wso2am`
+- `docker run -it -p 8280:8280 -p 8243:8243 -p 9443:9443 --name api-manager wso2/wso2am:latest`
+
+Launch:
+
+- `https://localhost:9443/carbon` 
+- `https://localhost:9443/publisher` 
+- `https://localhost:9443/devportal` 
+
+## Install with Kubernetes
+
+Create Kubernetes application
+
+- `kubectl apply -f wso2.yaml`
+
+- `kubectl port-forward deployment/wso2 8280:8280` - API Manager (HTTP)
+- `kubectl port-forward deployment/wso2 8243:8243` - API Manager (HTTPS)
+- `kubectl port-forward deployment/wso2 9443:9443` - Publisher / Carbon / DevPortal
+
+Delete Kubernetes application
+
+- `kubectl delete -f wso2.yaml`
+
+## Import API
+
+Launch:
+
+- `https://localhost:9443/publisher` 
+
+Import API from file `jsonrpc-api-docs.yaml`, deploy API and try out on HTTP (8280).
+
+RPC Request:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "CONTACTS.list",
+  "params": []
+}
+```
+
+## Contributors
+
+* [Giorgio Silvestris](https://github.com/giosil)

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wdemo-be
+  labels:
+    app: wdemo-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wdemo-be
+  template:
+    metadata:
+      labels:
+        app: wdemo-be
+    spec:
+      containers:
+        - name: wdemo-be
+          image: wdemo-be
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              protocol: TCP

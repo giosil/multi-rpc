@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost/wdemo-be"
+      "url": "http://localhost/rpc"
     }
   ],
   "paths": {
@@ -56,7 +56,11 @@
         "properties": {
           "jsonrpc": {
             "type": "string",
-            "description": "Protocol version"
+            "description": "Protocol version",
+            "example": "2.0",
+            "enum": [
+              "2.0"
+            ]
           },
           "id": {
             "type": "integer",
@@ -81,7 +85,11 @@
         "properties": {
           "jsonrpc": {
             "type": "string",
-            "description": "Protocol version"
+            "description": "Protocol version",
+            "example": "2.0",
+            "enum": [
+              "2.0"
+            ]
           },
           "id": {
             "type": "integer",

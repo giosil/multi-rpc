@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wdemo-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: wdemo
+      http:
+        paths:
+          - path: /wdemo-fe
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wdemo-fe-service
+                port:
+                  number: 8080
+          - path: /wdemo-be
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wdemo-be-service
+                port:
+                  number: 8080

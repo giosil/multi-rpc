@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>WDemo - Frontend ver. 1.0.0</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th {
+      background-color: #eeeeee;
+    }
+  </style>
+</head>
+<body>
+  <h1>WDemo - Frontend ver. 1.0.0</h1>
+  <hr>
+  <form id="formContact" name="formContact" action="javascript:void(0);">
+     Name: <input type="text" id="contactName" name="contactName">
+      | <button it="btnAdd" type="button" onclick="onBtnAddClick()">Add</button>
+      | <button it="btnClear" type="button" onclick="onBtnClearClick()">Clear</button>
+  </form>
+  <hr>
+  <table id="tableContacts" style="width: 30%">
+    <caption>Contacts</caption>
+    <thead id="theadContacts">
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody id="tbodyContacts">
+    </tbody>
+  </table>
+  
+  <script type="text/javascript" src="js/jrpc.js"></script>
+  
+  <script language="javascript">
+    window.onload = function(e) {
+      console.log('onload');
+      list();
+    };
+
+    function onBtnAddClick() {
+      console.log('onBtnAddClick');
+      var txtName = document.getElementById('contactName');
+      if(!txtName) return;
+      var n = txtName.value;
+      if(!n) {
+        alert('Missing name!');
+        txtName.focus();
+        return;
+      }
+      txtName.value = '';
+      txtName.focus();
+      jrpc.execute('CONTACTS.add', [{"name": n}], function(result) {
+        if(result) {
+          list();
+        }
+        else {
+          alert('Operation failed');
+        }
+      });
+    }
+
+    function onBtnClearClick() {
+      console.log('onBtnClearClick');
+      let tbody = document.getElementById('tbodyContacts');
+      if(!tbody) return;
+      var txtName = document.getElementById('contactName');
+      if(txtName) {
+        txtName.value = '';
+        txtName.focus();
+      }
+      jrpc.execute('CONTACTS.clear', [], function(result) {
+        if(result) {
+          tbody.innerHTML = '';
+        }
+        else {
+          alert('Operation failed');
+        }
+      });
+    }
+
+    function list() {
+      console.log('list');
+      jrpc.execute('CONTACTS.list', [], function(result) {
+        if(!result || !result.length) return;
+        var tb = '';
+        for(var contact of result) {
+          tb += '<tr><td>' + contact.name + '</td></tr>';
+        }
+        let tbody = document.getElementById('tbodyContacts');
+        if(!tbody) return;
+        tbody.innerHTML = tb;
+      });
+    }
+  </script>
+</body>
+</html>
