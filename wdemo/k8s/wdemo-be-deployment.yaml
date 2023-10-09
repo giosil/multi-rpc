@@ -15,7 +15,7 @@ spec:
         app: wdemo-be
     spec:
       containers:
-        - name: wdemo-be
+        - name: main
           image: wdemo-be
           imagePullPolicy: Never
           ports:

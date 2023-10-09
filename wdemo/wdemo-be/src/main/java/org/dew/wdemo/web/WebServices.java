@@ -1,9 +1,9 @@
-package org.dew.demo.web;
+package org.dew.wdemo.web;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import org.dew.demo.ws.WSContacts;
+import org.dew.wdemo.ws.WSContacts;
 
 /**
  * Entry point per il servizio RPC.

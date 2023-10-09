@@ -1,11 +1,11 @@
-package org.dew.demo.bl;
+package org.dew.wdemo.bl;
 
 import java.io.Serializable;
 
 public 
 class Contact implements Serializable 
 {
-  private static final long serialVersionUID = -3474363586704886466L;
+  private static final long serialVersionUID = 9167300340509706571L;
   
   private String name;
 

@@ -1,4 +1,4 @@
-package org.dew.demo.web;
+package org.dew.wdemo.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;

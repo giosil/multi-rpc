@@ -1,9 +1,9 @@
-package org.dew.demo.ws;
+package org.dew.wdemo.ws;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dew.demo.bl.Contact;
+import org.dew.wdemo.bl.Contact;
 
 public 
 class WSContacts 
@@ -20,6 +20,32 @@ class WSContacts
     return true;
   }
 
+  public static List<Contact> find(Contact filter) {
+    System.out.println("[wdemo-be] WSContacts.find(" + filter + ")...");
+    String filterNameLC = null;
+    if(filter != null) {
+      filterNameLC = filter.getName();
+      if(filterNameLC != null) {
+        filterNameLC = filterNameLC.trim().toLowerCase();
+      }
+    }
+    if(filterNameLC != null && filterNameLC.length() > 0) {
+      List<Contact> result = new ArrayList<Contact>();
+      for(int i = 0; i < data.size(); i++) {
+        Contact item = data.get(i);
+        if(item == null) continue;
+        String itemName = item.getName();
+        if(itemName == null || itemName.length() == 0) continue;
+        itemName = itemName.toLowerCase();
+        if(itemName.indexOf(filterNameLC) >= 0) {
+          result.add(item);
+        }
+      }
+      return result;
+    }
+    return data;
+  }
+  
   public static List<Contact> list() {
     System.out.println("[wdemo-be] WSContacts.list()...");
     return data;

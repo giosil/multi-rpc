@@ -15,7 +15,7 @@ spec:
         app: wdemo-be
     spec:
       containers:
-        - name: wdemo-be
+        - name: main
           image: wdemo-be
           imagePullPolicy: Never
           ports:
@@ -81,7 +81,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: wdemo
+    - host: wdemo.dew.org
       http:
         paths:
           - path: /wdemo-fe

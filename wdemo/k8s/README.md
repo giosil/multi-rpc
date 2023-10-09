@@ -26,6 +26,16 @@ Delete Kubernetes application
 
 - `kubectl delete -f wdemo.yaml`
 
+## Run
+
+Add to hosts file:
+
+127.0.0.1	wdemo.dew.org
+
+Launch:
+
+- `http://wdemo.dew.org/wdemo-fe`
+
 ## Contributors
 
 * [Giorgio Silvestris](https://github.com/giosil)

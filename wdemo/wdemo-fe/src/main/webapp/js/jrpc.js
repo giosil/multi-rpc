@@ -1,4 +1,4 @@
-function JRPC(s){this.urlEndPoint=s;this.authUserName=null;this.authPassword=null;this.authToken=null;this.callId=0;}
+function JRPC(s){this.urlEndPoint=s;this.authUserName=null;this.authPassword=null;this.authToken=null;this.internalKey=null;this.callId=0;}
 JRPC.prototype.setURL=function(s){
 	this.urlEndPoint=s;
 }
@@ -10,6 +10,9 @@ JRPC.prototype.setPassword=function(s){
 }
 JRPC.prototype.setToken=function(s){
 	this.authToken=s;
+}
+JRPC.prototype.setInternalKey=function(s){
+	this.internalKey=s;
 }
 JRPC.prototype.upgradeValues=function(obj){
 	var m,useHasOwn={}.hasOwnProperty?true:false;
@@ -72,6 +75,9 @@ JRPC.prototype.execute = function(methodName, params, successHandler, exceptionH
 	else if(this.authUserName) {
 		xhr.setRequestHeader('Authorization','Basic '+btoa(this.authUserName+":"+this.authPassword));
 	}
+	else if(this.internalKey) {
+		xhr.setRequestHeader('Internal-Key',this.internalKey);
+	}
 	xhr.send(postData);
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4){
@@ -100,6 +106,7 @@ JRPC.prototype.execute = function(methodName, params, successHandler, exceptionH
 					break;
 				default:
 					console.log('JRPC.execute("' + methodName + '") -> HTTP ' + xhr.status);
+					alert('Error HTTP ' + xhr.status);
 					break;
 			}
 		}
@@ -135,6 +142,9 @@ JRPC.prototype.executeSync = function(methodName, params){
 	else if(this.authUserName) {
 		xhr.setRequestHeader('Authorization','Basic '+btoa(this.authUserName+":"+this.authPassword));
 	}
+	else if(this.internalKey) {
+		xhr.setRequestHeader('Internal-Key',this.internalKey);
+	}
 	xhr.send(postData);
 	if(xhr.status==200) {
 		var response = JSON.parse(xhr.responseText);
@@ -146,6 +156,7 @@ JRPC.prototype.executeSync = function(methodName, params){
 	}
 	else {
 		console.log('JRPC.execute("' + methodName + '") -> HTTP ' + xhr.status);
+		alert('Error HTTP ' + xhr.status);
 	}
 	return null;
 }
@@ -154,5 +165,3 @@ function _onRpcError(error){
 	console.log(error.message);
 	alert("Errore: " + error.message);
 }
-
-var jrpc = new JRPC("/wdemo-be/rpc");

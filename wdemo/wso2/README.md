@@ -27,9 +27,21 @@ Delete Kubernetes application
 
 ## Import API
 
-Launch:
+Add to hosts file:
 
-- `https://localhost:9443/publisher` 
+127.0.0.1	gwapi.dew.org
+
+Wait a few seconds for the application to start.
+
+Check APIM:
+
+- `http://gwapi.dew.org`
+
+Launch WSO2 Publisher:
+
+- `https://localhost:9443/publisher`
+
+Use admin / admin to login.
 
 Import API from file `jsonrpc-api-docs.yaml`, deploy API and try out on HTTP (8280).
 
