@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>WDemo - Frontend ver. 1.0.0</title>
   <style>
-    table, th, td {
+    table#tableContacts, table#tableContacts th, table#tableContacts td {
       border: 1px solid black;
       border-collapse: collapse;
     }
@@ -17,15 +17,23 @@
   <h1>WDemo - Frontend ver. 1.0.0</h1>
   <hr>
   <h4>Configuration:</h4>
+  <p><strong>Examples:</strong> &nbsp;&nbsp;&nbsp;/wdemo-be/rpc &nbsp;&nbsp;&nbsp;http://wdemo.dew.org/wdemo-be/rpc &nbsp;&nbsp;&nbsp;http://localhost:8280/wdemo-be/1.0.0/rpc &nbsp;&nbsp;&nbsp;http://gwapi.dew.org/wdemo-be/1.0.0/rpc</p>
   <form id="formConfig" name="formConfig" action="javascript:void(0);">
      <label for="rpcURL">URL:</label> &nbsp;&nbsp;<input type="text" id="rpcURL" name="rpcURL" value="/wdemo-be/rpc" size="100"><br><br>
-     <label for="rpcKey">Key:</label> &nbsp;&nbsp;<textarea id="rpcKey" name="rpcToken" rows="4" cols="100"></textarea>
+     <table style="width: 100%;">
+       <tr>
+         <td style="width: 33%; text-align: center;">
+            <label for="rpcInt">Internal-Key:</label><br><textarea id="rpcInt" name="rpcInt" rows="5" cols="60"></textarea>
+         </td> 
+         <td style="width: 33%; text-align: center;">
+            <label for="rpcKey">API-Key:</label><br><textarea id="rpcKey" name="rpcKey" rows="5" cols="60"></textarea>
+         </td> 
+         <td style="text-align: center;">
+            <label for="rpcTok">Token:</label><br><textarea id="rpcTok" name="rpcTok" rows="5" cols="60"></textarea>
+         </td> 
+       </tr>
+     </table>
   </form>
-  <p><strong>Direct</strong>: /wdemo-be/rpc<br>
-  <strong>Direct</strong>: http://wdemo.dew.org/wdemo-be/rpc<br>
-  <strong>WSO2 APIM</strong>: http://localhost:8280/wdemo-be/1.0.0/rpc<br>
-  <strong>WSO2 APIM</strong>: http://gwapi.dew.org/wdemo-be/1.0.0/rpc<br>
-  </p>
   <hr>
   <h4>Application:</h4>
   <form id="formContact" name="formContact" action="javascript:void(0);">
@@ -120,14 +128,34 @@
           jrpc.setURL(rpcURL);
         }
       }
+      var txtRpcInt = document.getElementById('rpcInt');
+      if(txtRpcInt) {
+        var rpcInt = txtRpcInt.value;
+        if(rpcInt) {
+          jrpc.setInternalKey(rpcInt);
+        }
+        else {
+          jrpc.setInternalKey("");
+        }
+      }
       var txtRpcKey = document.getElementById('rpcKey');
       if(txtRpcKey) {
         var rpcKey = txtRpcKey.value;
         if(rpcKey) {
-          jrpc.setInternalKey(rpcKey);
+          jrpc.setAPIKey(rpcKey);
         }
         else {
-          jrpc.setInternalKey("");
+          jrpc.setAPIKey("");
+        }
+      }
+      var txtRpcTok = document.getElementById('rpcTok');
+      if(txtRpcTok) {
+        var rpcTok = txtRpcTok.value;
+        if(rpcTok) {
+          jrpc.setToken(rpcTok);
+        }
+        else {
+          jrpc.setToken("");
         }
       }
       return jrpc;
