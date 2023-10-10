@@ -1,12 +1,12 @@
 # WDemo
 
-A simple frontend backend application.
+A simple frontend backend application using multi-rpc library.
 
 ## Build
 
-- `git clone https://github.com/giosil/wdemo.git`
 - `cd wdemo-fe`
 - `mvn clean install`
+
 - `cd wdemo-be`
 - `mvn clean install`
 
