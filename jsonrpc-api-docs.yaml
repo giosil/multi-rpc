@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
-  title: JSON-RPC
-  description: JSON-RPC Service
+  title: Application JSON-RPC
+  description: Application JSON-RPC Service
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
+  version: 1.0.0
 servers:
-  - url: http://localhost/rpc
+  - url: http://localhost/application
 paths:
   /rpc:
     post:

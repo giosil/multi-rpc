@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Application JSON-RPC",
-    "description": "Application JSON-RPC Service",
+    "title": "WDemo JSON-RPC",
+    "description": "WDemo JSON-RPC Service",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost/application"
+      "url": "http://localhost:8080/wdemo-be"
     }
   ],
   "paths": {

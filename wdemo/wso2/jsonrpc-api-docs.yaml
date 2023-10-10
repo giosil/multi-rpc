@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: JSON-RPC
-  description: JSON-RPC Service
+  title: WDemo JSON-RPC
+  description: WDemo JSON-RPC Service
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
+  version: 1.0.0
 servers:
   - url: http://wdemo-be-service:8080/wdemo-be
 paths:
