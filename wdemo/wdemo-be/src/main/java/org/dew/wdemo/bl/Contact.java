@@ -5,15 +5,21 @@ import java.io.Serializable;
 public 
 class Contact implements Serializable 
 {
-  private static final long serialVersionUID = 9167300340509706571L;
+  private static final long serialVersionUID = 7068280822811696879L;
   
   private String name;
+  private String email;
 
   public Contact() {
   }
 
   public Contact(String name) {
     this.name = name;
+  }
+
+  public Contact(String name, String email) {
+    this.name  = name;
+    this.email = email;
   }
 
   public String getName() {
@@ -24,24 +30,32 @@ class Contact implements Serializable
     this.name = name;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   @Override
   public boolean equals(Object object) {
     if (object instanceof Contact) {
-      String objName = ((Contact) object).getName();
-      if(objName == null && this.name == null) return true;
-      return objName != null && objName.equals(this.name);
+      String objName  = ((Contact) object).getName();
+      String objEmail = ((Contact) object).getEmail();
+      String objVal   = objName + ":" + objEmail;
+      return objVal.equals(name + ":" + email);
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    if(name == null) return 0;
-    return name.hashCode();
+    return (name + ":" + email).hashCode();
   }
 
   @Override
   public String toString() {
-    return "Contact(" + name + ")";
+    return "Contact(" + name + "," + email + ")";
   }
 }

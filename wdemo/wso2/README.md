@@ -43,7 +43,7 @@ Launch WSO2 Publisher:
 
 Use admin / admin to login.
 
-Import API from file `jsonrpc-api-docs.yaml`, deploy API and try out on HTTP (8280).
+To deploy RPC Endpoint, import API from file `wdemo-api-docs.yaml`, deploy API and try out on HTTP (8280).
 
 RPC Request:
 
@@ -55,6 +55,8 @@ RPC Request:
   "params": []
 }
 ```
+
+To deploy RESTful API, import API from file `wdemo-rest-api-docs.yaml`, deploy API and try out on HTTP (8280).
 
 ## Contributors
 

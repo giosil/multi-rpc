@@ -48,7 +48,7 @@ Launch:
 
 - `https://localhost:9443/publisher`
 
-Log in with admin / admin and import API from file `jsonrpc-api-docs.yaml`.
+Log in with admin / admin and import API from file `wdemo-api-docs.yaml`.
 
 ## Contributors
 

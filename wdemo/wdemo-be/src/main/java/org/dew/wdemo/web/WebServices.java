@@ -8,7 +8,7 @@ import org.dew.wdemo.ws.WSContacts;
 /**
  * Entry point per il servizio RPC.
  */
-@WebServlet(name = "WebServices", loadOnStartup = 2, urlPatterns = { "/rpc/*" })
+@WebServlet(name = "WebServices", loadOnStartup = 1, urlPatterns = { "/rpc/*" })
 public 
 class WebServices extends org.rpc.server.RpcServlet 
 {

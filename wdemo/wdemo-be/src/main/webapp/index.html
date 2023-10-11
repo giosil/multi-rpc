@@ -3,12 +3,37 @@
 <head>
   <meta charset="utf-8">
   <title>WDemo - Backend ver. 1.0.0</title>
+  <style>
+    a {
+      text-decoration: none;
+    }
+    a:link, a:visited {
+      color: blue;
+    }
+    a:hover {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <h1>WDemo - Backend ver. 1.0.0</h1>
+  <h3>RPC Service</h3>
   <hr>
-  <a href="rpc/about">rpc endpoint</a>
+  <a href="rpc/about" target="_blank">RPC endpoint</a>
   <hr>
-  <a href="swagger/index.html">swagger</a>
+  <a href="swagger/index.html" target="_blank">Swagger UI RPC</a><br><br>
+  <a href="swagger/wdemo-api-docs.yaml" target="_blank">YAML OpenAPI Docs</a><br>
+  <a href="swagger/wdemo-api-docs.json" target="_blank">JSON OpenAPI Docs</a>
+  <hr>
+  <h3>RESTful Services</h3>
+  <a href="rpc/CONTACTS.list" target="_blank">[GET] CONTACTS.list</a><br>
+  <a href="rpc/CONTACTS.find?name=ste" target="_blank">[GET] CONTACTS.find?name=ste</a><br>
+  <a href="rpc/CONTACTS.find?name=ste&email=ame" target="_blank">[GET] CONTACTS.find?name=ste&email=ame</a><br>
+  <a href="rpc/CONTACTS.clear" target="_blank">[GET] CONTACTS.clear</a><br>
+  <a href="rpc/CONTACTS.init" target="_blank">[GET] CONTACTS.init</a><br>
+  <hr>
+  <a href="swagger/index2.html" target="_blank">Swagger UI RESTful</a><br><br>
+  <a href="swagger/wdemo-rest-api-docs.yaml" target="_blank">YAML OpenAPI Docs</a><br>
+  <a href="swagger/wdemo-rest-api-docs.json" target="_blank">JSON OpenAPI Docs</a>
 </body>
 </html>
