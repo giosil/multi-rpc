@@ -13,6 +13,10 @@ or
 - `docker build -t wdemo-fe:1.0.0 .`
 - `docker tag wdemo-fe:1.0.0 wdemo-fe:latest`
 
+## Remove Docker Image
+
+- `docker rmi wdemo-fe`
+
 ## Contributors
 
 * [Giorgio Silvestris](https://github.com/giosil)

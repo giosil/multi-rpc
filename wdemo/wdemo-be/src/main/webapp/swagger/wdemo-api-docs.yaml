@@ -8,6 +8,8 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:8080/wdemo-be
+  - url: http://wdemo.dew.org/wdemo-be
+  - url: http://wdemo-be-service:8080/wdemo-be
 paths:
   /rpc:
     post:

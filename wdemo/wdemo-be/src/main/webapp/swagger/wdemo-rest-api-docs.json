@@ -12,6 +12,12 @@
   "servers": [
     {
       "url": "http://localhost:8080/wdemo-be/rpc"
+    },
+    {
+      "url": "http://wdemo.dew.org/wdemo-be/rpc"
+    },
+    {
+      "url": "http://wdemo-be-service:8080/wdemo-be/rpc"
     }
   ],
   "paths": {
