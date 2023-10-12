@@ -44,13 +44,33 @@ Check installation:
 
 `vi filebeat.yml`
 
-paths = /usr/local/tomcat/logs/*.log
+```yaml
+filebeat.inputs:
 
-host Kibana = kibana-dew.default.svc.cluster.local
+...
+  paths:
+    - /usr/local/tomcat/logs/*.log
+...
 
-host Elasticsearch = elasticsearch-dew.default.svc.cluster.local
+...
+setup.kibana:
+  host: "kibana-dew.default.svc.cluster.local:5601"
+...
 
-host Logstash = logstash-dew.default.svc.cluster.local
+...
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["elasticsearch-dew.default.svc.cluster.local:9200"]
+...
+
+#####  OR #####
+
+...
+output.logstash:
+  # The Logstash hosts
+  hosts: ["logstash-dew.default.svc.cluster.local:5044"]
+...
+```
 
 `./filebeat modules enable tomcat`
 
