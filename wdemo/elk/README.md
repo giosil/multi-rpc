@@ -76,7 +76,11 @@ output.logstash:
 
 `vi modules.d/tomcat.yml`
 
-enabled: true
+```yaml
+#...
+    enabled: true
+#...
+```
 
 `./filebeat -e`
 
