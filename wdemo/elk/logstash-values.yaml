@@ -1,0 +1,5 @@
+extraEnvVars:
+  - name: ELASTICSEARCH_HOST
+    value: "elasticsearch-dew.default.svc.cluster.local"
+  - name: KIBANA_HOST
+    value: "kibana-dew.default.svc.cluster.local"
