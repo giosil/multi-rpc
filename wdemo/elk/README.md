@@ -66,14 +66,6 @@ output.elasticsearch:
   # Array of hosts to connect to.
   hosts: ["elasticsearch-dew.default.svc.cluster.local:9200"]
 #...
-
-###### OR ######
-
-#...
-output.logstash:
-  # The Logstash hosts
-  hosts: ["logstash-dew.default.svc.cluster.local:5044"]
-#...
 ```
 
 `./filebeat modules enable tomcat`
