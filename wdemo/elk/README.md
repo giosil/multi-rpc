@@ -4,35 +4,39 @@
 
 `helm install elasticsearch-dew bitnami/elasticsearch`
 
-Check installation:
+Wait a few minutes and check installation:
+
+`helm status elasticsearch-dew`
 
 `kubectl port-forward --namespace default svc/elasticsearch-dew 9200:9200`
 
+`wget http://localhost:9200`
+
 `wget http://localhost:9200/_cat/indices?v=true&s=index`
+
+`wget http://localhost:9200/_cat/indices?format=json`
 
 ## Install Kibana
 
 `helm install kibana-dew bitnami/kibana --set elasticsearch.hosts[0]=elasticsearch-dew.default.svc.cluster.local,elasticsearch.port=9200`
 
-Check installation:
+Wait a few minutes and check installation:
+
+`helm status kibana-dew`
 
 `kubectl port-forward --namespace default svc/kibana-dew 8080:5601`
 
 `wget http://localhost:8080`
 
-## Install Logstash
-
-`helm install logstash-dew -f logstash-values.yaml bitnami/logstash`
-
 ## Install Filebeat on tomcat POD
 
-`yum install curl`
+`yum -y install curl`
 
-`yum install tar`
+`yum -y install tar`
 
-`yum install gzip`
+`yum -y install gzip`
 
-`yum install vim`
+`yum -y install vim`
 
 `cd /root`
 
@@ -78,15 +82,57 @@ output.logstash:
 
 ```yaml
 #...
+- module: tomcat
+  log:
     enabled: true
 #...
 ```
 
 `./filebeat -e`
 
-or
+## View log on kibana
 
-`./filebeat setup -e`
+![00](elk_00.png)
+
+## Install Logstash
+
+Check file `logstash-values.yaml`
+
+```yaml
+extraEnvVars:
+  - name: ELASTICSEARCH_HOST
+    value: "elasticsearch-dew.default.svc.cluster.local"
+  - name: KIBANA_HOST
+    value: "kibana-dew.default.svc.cluster.local"
+```
+
+`helm install logstash-dew -f logstash-values.yaml bitnami/logstash`
+
+Wait a few minutes and check installation:
+
+`helm status logstash-dew`
+
+`kubectl --namespace default port-forward svc/logstash-dew 8081:8080`
+
+`wget http://localhost:8081`
+
+Modify filebeat config:
+
+```yaml
+filebeat.inputs:
+
+# Comment output.elasticsearch and hosts
+#output.elasticsearch:
+  # Array of hosts to connect to.
+  #hosts: ["elasticsearch-dew.default.svc.cluster.local:9200"]
+#...
+
+#...
+output.logstash:
+  # The Logstash hosts
+  hosts: ["logstash-dew.default.svc.cluster.local:8080"]
+#...
+```
 
 ## Uninstall
 

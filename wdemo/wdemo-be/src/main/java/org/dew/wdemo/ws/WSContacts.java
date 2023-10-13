@@ -3,12 +3,16 @@ package org.dew.wdemo.ws;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.dew.wdemo.bl.Contact;
+import org.dew.wdemo.log.LoggerFactory;
 
 public 
 class WSContacts 
 {
+  protected static Logger logger = LoggerFactory.getLogger(WSContacts.class);
+  
   protected static List<Contact> data = new ArrayList<Contact>();
   
   static {
@@ -16,7 +20,8 @@ class WSContacts
   }
 
   public static int init() {
-    System.out.println("[wdemo-be] WSContacts.init()...");
+    logger.fine("init()...");
+    
     if(data == null) data = new ArrayList<Contact>();
     data.clear();
     data.add(new Contact("Clark Kent",      "superman@dew.org"));
@@ -29,18 +34,20 @@ class WSContacts
   }
 
   public static boolean clear() {
-    System.out.println("[wdemo-be] WSContacts.clear()...");
+    logger.fine("clear()...");
+    
     data.clear();
     return true;
   }
 
   public static List<Contact> find() {
-    System.out.println("[wdemo-be] WSContacts.find()...");
+    logger.fine("find()...");
+    
     return data;
   }
 
   public static List<Contact> find(Contact filter) {
-    System.out.println("[wdemo-be] WSContacts.find(" + filter + ")...");
+    logger.fine("find(" + filter + ")...");
     
     boolean applyFilterName  = false;
     boolean applyFilterEmail = false;
@@ -102,32 +109,35 @@ class WSContacts
   }
   
   public static List<Contact> list() {
-    System.out.println("[wdemo-be] WSContacts.list()...");
+    logger.fine("list()...");
+    
     return data;
   }
 
   public static boolean add(Contact contact) throws Exception {
-    System.out.println("[wdemo-be] WSContacts.add(" + contact + ")...");
+    logger.fine("add(" + contact + ")...");
+    // Validate
     if(contact == null || contact.getName() == null) {
-      System.err.println("[wdemo-be] WSContacts.add(" + contact + ") -> Invalid contact");
+      logger.severe("add(" + contact + ") -> Invalid contact");
       throw new Exception("Invalid contact");
     }
     String name = contact.getName();
     if(name.equalsIgnoreCase("err")) {
-      System.err.println("[wdemo-be] WSContacts.add(" + contact + ") -> Test error");
+      logger.severe("add(" + contact + ") -> Test error");
       throw new Exception("Test error");
     }
     if(data.indexOf(contact) >= 0) {
       return false;
     }
+    // Add
     data.add(contact);
     return true;
   }
 
   public static int remove(Contact contact) throws Exception {
-    System.out.println("[wdemo-be] WSContacts.remove(" + contact + ")...");
+    logger.fine("remove(" + contact + ")...");
     if(contact == null || contact.getName() == null) {
-      System.err.println("[wdemo-be] WSContacts.remove(" + contact + ") -> Invalid contact");
+      logger.severe("remove(" + contact + ") -> Invalid contact");
       throw new Exception("Invalid contact");
     }
     

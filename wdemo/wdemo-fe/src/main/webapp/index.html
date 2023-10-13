@@ -37,9 +37,12 @@
   <hr>
   <h4>Application:</h4>
   <form id="formContact" name="formContact" action="javascript:void(0);">
-     <label for="contactName">Name:</label> <input type="text" id="contactName" name="contactName">
+     <label for="contactName">Name:</label> <input type="text" id="contactName" name="contactName"> 
+     <label for="contactEmail">Email:</label> <input type="text" id="contactEmail" name="contactEmail">
       | <button it="btnAdd" type="button" onclick="onBtnAddClick()">Add</button>
+      | <button it="btnRefresh" type="button" onclick="onBtnRefreshClick()">Refresh</button>
       | <button it="btnClear" type="button" onclick="onBtnClearClick()">Clear</button>
+      | <button it="btnInit" type="button" onclick="onBtnInitClick()">Init</button>
   </form>
   <hr>
   <table id="tableContacts" style="width: 30%">
@@ -47,6 +50,7 @@
     <thead id="theadContacts">
       <tr>
         <th>Name</th>
+        <th>Email</th>
       </tr>
     </thead>
     <tbody id="tbodyContacts">
@@ -63,18 +67,25 @@
 
     function onBtnAddClick() {
       console.log('onBtnAddClick');
+      // Validate
       var txtName = document.getElementById('contactName');
       if(!txtName) return;
-      var n = txtName.value;
-      if(!n) {
+      var txtEmail = document.getElementById('contactEmail');
+      if(!txtEmail) return;
+      var cn = txtName.value;
+      var ce = txtEmail.value;
+      if(!cn) {
         alert('Missing name!');
         txtName.focus();
         return;
       }
+      // Reset UI
       txtName.value = '';
+      txtEmail.value = '';
       txtName.focus();
+      // Invoke service
       var jrpc = getJrpc();
-      jrpc.execute('CONTACTS.add', [{"name": n}], function(result) {
+      jrpc.execute('CONTACTS.add', [{"name": cn, "email": ce}], function(result) {
         if(result) {
           list();
         }
@@ -84,8 +95,14 @@
       });
     }
 
+    function onBtnRefreshClick() {
+      console.log('onBtnRefreshClick');
+      list();
+    }
+
     function onBtnClearClick() {
       console.log('onBtnClearClick');
+      // Reset UI
       let tbody = document.getElementById('tbodyContacts');
       if(!tbody) return;
       var txtName = document.getElementById('contactName');
@@ -93,6 +110,7 @@
         txtName.value = '';
         txtName.focus();
       }
+      // Invoke service
       var jrpc = getJrpc();
       jrpc.execute('CONTACTS.clear', [], function(result) {
         if(result) {
@@ -104,6 +122,15 @@
       });
     }
 
+    function onBtnInitClick() {
+      console.log('onBtnInitClick');
+      // Invoke service
+      var jrpc = getJrpc();
+      jrpc.execute('CONTACTS.init', [], function(result) {
+        list();
+      });
+    }
+
     function list() {
       console.log('list');
       var jrpc = getJrpc();
@@ -111,7 +138,11 @@
         if(!result || !result.length) return;
         var tb = '';
         for(var contact of result) {
-          tb += '<tr><td>' + contact.name + '</td></tr>';
+          var cn = contact.name;
+          if(!cn) cn = '&nbsp;';
+          var ce = contact.email;
+          if(!ce) ce = '&nbsp;';
+          tb += '<tr><td>' + cn + '</td><td>' + ce + '</td></tr>';
         }
         let tbody = document.getElementById('tbodyContacts');
         if(!tbody) return;
