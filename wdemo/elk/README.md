@@ -36,7 +36,9 @@ Wait a few minutes and check installation:
 
 `yum -y install gzip`
 
-`yum -y install vim`
+`yum -y install vim` - To edit files with vi
+
+`yum -y install procps` - To view processes with ps
 
 `cd /root`
 
@@ -137,13 +139,12 @@ Wait a few minutes and check installation:
 
 `helm status logstash-dew`
 
-Modify filebeat config:
+Stop filebeat process and modify config:
 
 `vi filebeat.yml`
 
 ```yaml
-filebeat.inputs:
-
+#...
 # Comment output.elasticsearch and hosts
 #output.elasticsearch:
   # Array of hosts to connect to.
@@ -156,6 +157,8 @@ output.logstash:
   hosts: ["logstash-dew.default.svc.cluster.local:5044"]
 #...
 ```
+
+`./filebeat -e`
 
 ## Uninstall
 
