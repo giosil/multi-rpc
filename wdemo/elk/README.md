@@ -28,7 +28,7 @@ Wait a few minutes and check installation:
 
 `wget http://localhost:8080`
 
-## Install Filebeat on tomcat POD
+## Install Filebeat on wdemo-be POD based on tomcat
 
 `yum -y install curl`
 
@@ -52,6 +52,8 @@ Wait a few minutes and check installation:
 filebeat.inputs:
 
 #...
+# wdemo-be logs: /root/log/*.log
+# tomcat   logs: /usr/local/tomcat/logs/*.log
   paths:
     - /usr/local/tomcat/logs/*.log
 #...
@@ -94,8 +96,39 @@ Check file `logstash-values.yaml`
 extraEnvVars:
   - name: ELASTICSEARCH_HOST
     value: "elasticsearch-dew.default.svc.cluster.local"
-  - name: KIBANA_HOST
-    value: "kibana-dew.default.svc.cluster.local"
+
+input: |-
+  http { port => 8080 }
+  beats { port => 5044 }
+
+output: |-
+  elasticsearch {
+    hosts => ["http://elasticsearch-dew.default.svc.cluster.local:9200"]
+    index => "%{[@metadata][beat]}-%{[@metadata][version]}"
+    action => "create"
+  }
+
+containerPorts:
+  - name: http
+    containerPort: 8080
+    protocol: TCP
+  - name: monitoring
+    containerPort: 9600
+    protocol: TCP
+  - name: beats
+    containerPort: 5044
+    protocol: TCP
+
+service:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP
+    - name: beats
+      port: 5044
+      targetPort: beats
+      protocol: TCP
 ```
 
 `helm install logstash-dew -f logstash-values.yaml bitnami/logstash`
@@ -104,11 +137,9 @@ Wait a few minutes and check installation:
 
 `helm status logstash-dew`
 
-`kubectl --namespace default port-forward svc/logstash-dew 8081:8080`
-
-`wget http://localhost:8081`
-
 Modify filebeat config:
+
+`vi filebeat.yml`
 
 ```yaml
 filebeat.inputs:
@@ -122,7 +153,7 @@ filebeat.inputs:
 #...
 output.logstash:
   # The Logstash hosts
-  hosts: ["logstash-dew.default.svc.cluster.local:8080"]
+  hosts: ["logstash-dew.default.svc.cluster.local:5044"]
 #...
 ```
 
