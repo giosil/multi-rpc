@@ -146,18 +146,18 @@ class WSContacts
     boolean applyFilterName  = false;
     boolean applyFilterEmail = false;
     
-    String filterNameLC  = null;
-    String filterEmailLC = null;
+    String filterName  = null;
+    String filterEmail = null;
     if(contact != null) {
-      filterNameLC = contact.getName();
-      if(filterNameLC != null) {
-        filterNameLC = filterNameLC.trim().toLowerCase();
-        applyFilterName = filterNameLC.length() > 0;
+      filterName = contact.getName();
+      if(filterName != null) {
+        filterName = filterName.trim();
+        applyFilterName = filterName.length() > 0;
       }
-      filterEmailLC = contact.getEmail();
-      if(filterEmailLC != null) {
-        filterEmailLC = filterEmailLC.trim().toLowerCase();
-        applyFilterEmail = filterEmailLC.length() > 0;
+      filterEmail = contact.getEmail();
+      if(filterEmail != null) {
+        filterEmail = filterEmail.trim();
+        applyFilterEmail = filterEmail.length() > 0;
       }
     }
     
@@ -175,25 +175,21 @@ class WSContacts
       
       if(applyFilterName && applyFilterEmail) {
         if(itemName == null || itemEmail == null) continue;
-        itemName  = itemName.toLowerCase();
-        itemEmail = itemEmail.toLowerCase();
-        if(itemName.indexOf(filterNameLC) >= 0 && itemEmail.indexOf(filterEmailLC) >= 0) {
+        if(itemName.equals(filterName) && itemEmail.equals(filterEmail)) {
           iterator.remove();
           result++;
         }
       }
       else if(applyFilterName) {
         if(itemName == null) continue;
-        itemName = itemName.toLowerCase();
-        if(itemName.indexOf(filterNameLC) >= 0) {
+        if(itemName.equals(filterName)) {
           iterator.remove();
           result++;
         }
       }
       else if(applyFilterEmail) {
         if(itemEmail == null) continue;
-        itemEmail = itemEmail.toLowerCase();
-        if(itemEmail.indexOf(filterEmailLC) >= 0) {
+        if(itemEmail.equals(filterEmail)) {
           iterator.remove();
           result++;
         }

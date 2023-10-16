@@ -11,6 +11,16 @@
     th {
       background-color: #eeeeee;
     }
+    a {
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:link, a:visited {
+      color: blue;
+    }
+    a:hover {
+      color: red;
+    }
   </style>
 </head>
 <body>
@@ -51,6 +61,7 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody id="tbodyContacts">
@@ -130,19 +141,33 @@
         list();
       });
     }
+    
+    function del(cn, ce) {
+      // Invoke service
+      var jrpc = getJrpc();
+      jrpc.execute('CONTACTS.remove', [{"name": cn, "email": ce}], function(result) {
+        if(result) {
+          list();
+        }
+        else {
+          alert('Operation failed');
+        }
+      });
+    }
 
     function list() {
       console.log('list');
       var jrpc = getJrpc();
       jrpc.execute('CONTACTS.list', [], function(result) {
-        if(!result || !result.length) return;
+        if(!result) result = [];
         var tb = '';
         for(var contact of result) {
           var cn = contact.name;
-          if(!cn) cn = '&nbsp;';
+          if(!cn) cn = '';
           var ce = contact.email;
-          if(!ce) ce = '&nbsp;';
-          tb += '<tr><td>' + cn + '</td><td>' + ce + '</td></tr>';
+          if(!ce) ce = '';
+          var oc = "del('" + cn.replace(/\'/g, "\\'") + "','" + ce.replace(/\'/g, "\\'") + "')";
+          tb += '<tr><td>' + cn + '</td><td>' + ce + '</td><td style="text-align: center;"><a onclick="' + oc + '">Remove</a></td></tr>';
         }
         let tbody = document.getElementById('tbodyContacts');
         if(!tbody) return;

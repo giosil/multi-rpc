@@ -1,7 +1,7 @@
 package org.dew.wdemo.log;
 
 import java.io.File;
-
+import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -31,10 +31,16 @@ class LoggerFactory
       // Logger configuration
       Logger logger = Logger.getLogger(LOGGER_NAME);
       
-      Handler handler = new FileHandler(LOG_FOLDER + File.separator + LOGGER_NAME + ".log", true);
-      handler.setFormatter(new LogFormatter());
+      LogFormatter formatter = new LogFormatter();
       
-      logger.addHandler(handler);
+      Handler consoleHandler = new ConsoleHandler();
+      consoleHandler.setFormatter(formatter);
+      
+      Handler fileHandler = new FileHandler(LOG_FOLDER + File.separator + LOGGER_NAME + ".log", true);
+      fileHandler.setFormatter(formatter);
+      
+      logger.addHandler(consoleHandler);
+      logger.addHandler(fileHandler);
       logger.setLevel(LOG_LEVEL);
       logger.setUseParentHandlers(false);
     }

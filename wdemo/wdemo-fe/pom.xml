@@ -8,7 +8,6 @@
   <packaging>war</packaging>
 
   <name>wdemo-fe</name>
-  <url>https://github.com/giosil/wdemo/wdemo-fe</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
