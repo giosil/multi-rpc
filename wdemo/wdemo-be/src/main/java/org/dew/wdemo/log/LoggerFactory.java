@@ -35,6 +35,8 @@ class LoggerFactory
       
       Handler consoleHandler = new ConsoleHandler();
       consoleHandler.setFormatter(formatter);
+      // Overwrite ConsoleHandler level
+      consoleHandler.setLevel(LOG_LEVEL);
       
       Handler fileHandler = new FileHandler(LOG_FOLDER + File.separator + LOGGER_NAME + ".log", true);
       fileHandler.setFormatter(formatter);
