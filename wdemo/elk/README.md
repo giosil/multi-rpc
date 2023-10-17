@@ -36,9 +36,11 @@ Wait a few minutes and check installation:
 
 `yum -y install gzip`
 
-`yum -y install vim` - To edit files with vi
+`yum -y install vim` - To install vi
 
-`yum -y install procps` - To view processes with ps
+`yum -y install procps` - To install ps
+
+`yum install coreutils` - To install utils (base64)
 
 `cd /root`
 
