@@ -30,6 +30,8 @@ Wait a few minutes and check installation:
 
 ## Install Filebeat on wdemo-be POD based on tomcat
 
+Install tools:
+
 `yum -y install curl`
 
 `yum -y install tar`
@@ -38,9 +40,13 @@ Wait a few minutes and check installation:
 
 `yum -y install vim` - To install vi
 
+Optional tools:
+
 `yum -y install procps` - To install ps
 
 `yum install coreutils` - To install utils (base64)
+
+Proceed with the installation:
 
 `cd /root`
 
