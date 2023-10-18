@@ -1,13 +1,13 @@
 # WDemo - Installation of MariaDB
 
-## Install mariadb
+## Install mariadb with Helm
 
 Check file `mariadb-values.yaml`
 
 ```yaml
 auth:
   rootPassword: "root123"
-  database: wdemo
+  database: "wdemo"
   username: "dew"
   password: "dew123"
 
@@ -80,6 +80,26 @@ Connect to database:
 ## Uninstall
 
 `helm uninstall mariadb-dew`
+
+## Install mariadb with Docker
+
+`docker pull bitnami/mariadb:11.1.2-debian-11-r0`
+
+`docker run --name mariadb-dew -e MARIADB_ROOT_PASSWORD=root123 -e MARIADB_DATABASE=wdemo -e MARIADB_USER=dew -e MARIADB_PASSWORD=dew123 -d bitnami/mariadb:11.1.2-debian-11-r0`
+
+`docker cp wdemo-schema.sql mariadb-dew:/tmp`
+
+`docker cp wdemo-schema.sh mariadb-dew:/tmp`
+
+`docker exec -w /tmp mariadb-dew ./wdemo-schema.sh`
+
+## Build mariadb image
+
+`docker build -t mariadb-dew .`
+
+`docker run --name mariadb-dew -d mariadb-dew`
+
+`docker exec -w /tmp mariadb-dew ./wdemo-schema.sh`
 
 ## Contributors
 
