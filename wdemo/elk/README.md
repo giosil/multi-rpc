@@ -50,11 +50,11 @@ Proceed with the installation:
 
 `cd /root`
 
-`curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.10.3-linux-x86_64.tar.gz`
+`curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.10.4-linux-x86_64.tar.gz`
 
-`tar xzvf filebeat-8.10.3-linux-x86_64.tar.gz`
+`tar xzvf filebeat-8.10.4-linux-x86_64.tar.gz`
 
-`cd filebeat-8.10.3-linux-x86_64/`
+`cd filebeat-8.10.4-linux-x86_64/`
 
 `vi filebeat.yml`
 
@@ -93,6 +93,39 @@ output.elasticsearch:
 ```
 
 `./filebeat -e`
+
+## Install Metricbeat on wdemo-be POD
+
+Proceed with the installation:
+
+`cd /root`
+
+`curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-8.10.4-linux-x86_64.tar.gz`
+
+`tar xzvf metricbeat-8.10.4-linux-x86_64.tar.gz`
+
+`cd metricbeat-8.10.4-linux-x86_64/`
+
+`vi metricbeat.yml`
+
+```yaml
+#...
+setup.kibana:
+  host: "kibana-dew.default.svc.cluster.local:5601"
+#...
+
+#...
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["elasticsearch-dew.default.svc.cluster.local:9200"]
+#...
+```
+
+`./metricbeat modules enable system`
+
+`vi modules.d/system.yml`
+
+`./metricbeat -e`
 
 ## View log on kibana
 
