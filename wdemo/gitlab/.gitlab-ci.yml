@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+deploy_test:
+  stage: deploy
+  rules:
+    - if: '($CI_COMMIT_BRANCH == "main") && $CI_PIPELINE_SOURCE == "push"'
+      when: manual
+      changes:
+        - src/**/*
+        - .gitlab-ci.yml
+  script:
+    - echo Test Pipeline.
