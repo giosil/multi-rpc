@@ -85,13 +85,19 @@ Connect to database:
 
 `docker pull bitnami/mariadb:11.1.2-debian-11-r0`
 
-`docker run --name mariadb-dew -e MARIADB_ROOT_PASSWORD=root123 -e MARIADB_DATABASE=wdemo -e MARIADB_USER=dew -e MARIADB_PASSWORD=dew123 -d bitnami/mariadb:11.1.2-debian-11-r0`
+`docker volume create wdemo-mariadb-vol`
+
+`docker run --name mariadb-dew -e MARIADB_ROOT_PASSWORD=root123 -e MARIADB_DATABASE=wdemo -e MARIADB_USER=dew -e MARIADB_PASSWORD=dew123 --mount source=wdemo-mariadb-vol,target=/bitnami/mariadb -d bitnami/mariadb:11.1.2-debian-11-r0`
 
 `docker cp wdemo-schema.sql mariadb-dew:/tmp`
 
 `docker cp wdemo-schema.sh mariadb-dew:/tmp`
 
 `docker exec -w /tmp mariadb-dew ./wdemo-schema.sh`
+
+`docker exec -u 0 mariadb-dew /bin/rm -fr /tmp/wdemo-schema.sql`
+
+`docker exec -u 0 mariadb-dew /bin/rm -fr /tmp/wdemo-schema.sh`
 
 ## Build mariadb image
 
