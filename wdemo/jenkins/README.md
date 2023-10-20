@@ -1,8 +1,10 @@
 # WDemo - Jenkins
 
-## Install Jenkins with Helm and Kubernetes
+## Install Jenkins with Helm and Kubernetes (run as root)
 
 - `helm repo add bitnami https://charts.bitnami.com/bitnami`
+
+In `jenkins-values.yaml` added ingress configuration and container security context (run as root):
 
 - `helm install jenkins-dew -f jenkins-values.yaml bitnami/jenkins`
 
@@ -44,7 +46,7 @@ To decode Base64 encoded text in Linux:
 
 ## Plugins to run pipeline with Maven / JUnit
 
-Install these plugins:
+Install these plugins in Jenkins web application:
 
 - `Pipeline`
 - `Pipeline: Stage View Plugin`
@@ -55,9 +57,13 @@ Install these plugins:
 
 - `apt-get update`
 
-- `apt-get install maven`
+- `apt-get install -y maven`
 
-- `apt-get install ant`
+- `apt-get install -y ant`
+
+Check maven installation:
+
+`mvn --version`
 
 Now, in Jenkinsfile you can write:
 
