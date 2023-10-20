@@ -16,17 +16,19 @@ Add to hosts file:
 
 Please wait several minutes before logging in to `http://gitlab.dew.org`.
 
-Check hostname in gitlabe pod.
-
 ## First login
 
 user: root
 
-To get password, connect to container or pod shell and execute:
+To get password execute:
 
-`cat /etc/gitlab/initial_root_password`
+`kubectl exec gitlab.dew.org -- grep Password: /etc/gitlab/initial_root_password`
 
-## Install Gitlab runner
+## To run Gitlab CI/CD pipeline
+
+Install Gitlab runner:
+
+`kubectl exec -ti gitlab.dew.org -- bash`
 
 `curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64`
 
@@ -34,11 +36,15 @@ To get password, connect to container or pod shell and execute:
 
 `useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash`
 
-After registration. Example:
+In Gitlab webapp create `New instance runner` from CI/CD / Runners configuration.
 
-`gitlab-runner register --url http://gitlab.dew.org --token glrt-nF6mCExSc-XVhszy_ECs`
+Register runner. Here is an example:
 
-Run:
+`gitlab-runner register --url http://gitlab.dew.org --token glrt-6NhYsr_xMixxPJGzFvc7`
+
+During registering, choose a executor (e.g. *shell*).
+
+Start the runner:
 
 `gitlab-runner run`
 
