@@ -34,25 +34,60 @@ The password is base64 encoded.
 
 To decode Base64 encoded text in Powershell:
 
-- `$B64 = 'TFRLaXhudG5YQg=='`
+- `$B64 = 'WDQ2NG9xNW9rMw=='`
 - `$DEC = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($B64))`
 - `Write-Output $DEC`
 
 To decode Base64 encoded text in Linux:
 
-- `echo TFRLaXhudG5YQg== | base64 -d`
+- `echo WDQ2NG9xNW9rMw== | base64 -d`
 
-## Install Maven on Jenkins Pod:
+## Plugins to run pipeline with Maven / JUnit
 
-`kubectl exec -ti deployments/jenkins-dew -- bash`
+Install these plugins:
 
-`cd opt`
+- `Pipeline`
+- `Pipeline: Stage View Plugin`
+- `Git`
+- `JUnit Plugin`
 
-`curl -L -O https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz`
+## Install Maven and Ant on Jenkins Pod (root)
 
-`tar xzvf apache-maven-3.9.5-bin.tar.gz`
+- `apt-get update`
+
+- `apt-get install maven`
+
+- `apt-get install ant`
 
 Now, in Jenkinsfile you can write:
 
-`sh "/opt/apache-maven-3.9.5/bin/mvn clean package"`
+`sh "mvn clean package"`
 
+## Example of Pipeline
+
+See [wcollections](https://github.com/giosil/wcollections) project.
+
+![Jenkins](jenkins.png)
+
+```
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+           steps {
+               git 'https://github.com/giosil/wcollections.git'
+               
+               // bat "mvn clean package"
+               sh "mvn clean package"
+           }
+           
+           post {
+               always {
+                   junit '**/target/surefire-reports/TEST-*.xml'
+               }
+           }
+        }
+    }
+}
+```
