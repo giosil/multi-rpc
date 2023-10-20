@@ -34,10 +34,25 @@ The password is base64 encoded.
 
 To decode Base64 encoded text in Powershell:
 
-- `$B64 ='WDVCd0gwZ0tNTQ=='`
+- `$B64 = 'TFRLaXhudG5YQg=='`
 - `$DEC = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($B64))`
 - `Write-Output $DEC`
 
 To decode Base64 encoded text in Linux:
 
-- `echo WDVCd0gwZ0tNTQ== | base64 -d`
+- `echo TFRLaXhudG5YQg== | base64 -d`
+
+## Install Maven on Jenkins Pod:
+
+`kubectl exec -ti deployments/jenkins-dew -- bash`
+
+`cd opt`
+
+`curl -L -O https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz`
+
+`tar xzvf apache-maven-3.9.5-bin.tar.gz`
+
+Now, in Jenkinsfile you can write:
+
+`sh "/opt/apache-maven-3.9.5/bin/mvn clean package"`
+
