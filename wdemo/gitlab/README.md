@@ -12,7 +12,7 @@
 
 Add to hosts file:
 
-127.0.0.1	gitlab.dew.org
+`127.0.0.1	gitlab.dew.org`
 
 Please wait several minutes before logging in to `http://gitlab.dew.org`.
 
