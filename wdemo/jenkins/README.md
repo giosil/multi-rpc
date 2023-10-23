@@ -22,6 +22,12 @@ Other commands:
 
 - `helm list`
 
+## Install Jekins locally on AS
+
+Last LTS version with Java 8 support.
+
+`https://get.jenkins.io/war-stable/2.346.3/`
+
 ## Run Jenkins
 
 Add to hosts file:
