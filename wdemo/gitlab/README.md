@@ -2,9 +2,9 @@
 
 ## Install Gitlab with Docker
 
-`docker pull gitlab/gitlab-ee:latest`
+`docker pull gitlab/gitlab-ce:latest`
 
-`docker run --detach --hostname gitlab.dew.org --publish 443:443 --publish 80:80 --publish 22:22 --name gitlab --shm-size 256m gitlab/gitlab-ee:latest`
+`docker run --detach --hostname gitlab.dew.org --publish 443:443 --publish 80:80 --publish 22:22 --name gitlab --shm-size 256m gitlab/gitlab-ce:latest`
 
 ## Install Gitlab with Kubernetes
 

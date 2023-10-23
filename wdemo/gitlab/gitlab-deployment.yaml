@@ -23,7 +23,7 @@ spec:
         name: cache-volume
       containers:
         - name: main
-          image: gitlab/gitlab-ee:latest
+          image: gitlab/gitlab-ce:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 80
