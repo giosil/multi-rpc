@@ -70,12 +70,7 @@ To control test coverage, configure the maven plugin `jacoco` as below:
 
 ```xml
   <build>
-    <finalName>wdemo-be</finalName>
     <plugins>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.2</version>
-      </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
