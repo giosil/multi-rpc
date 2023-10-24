@@ -58,13 +58,76 @@ In `$HOME/.m2/settings.xml` add:
 </settings>
 ```
 
-In the end launch SonarQube analysis:
+There is no need to create a project from the dashboard with the admin token. You can just launch SonarQube analysis:
 
 `mvn clean verify sonar:sonar`
 
-If you define mvn2 as a well configured mvn:
+If you have defined `mvn2` as a well configured `mvn`:
 
 `mvn2 clean verify sonar:sonar`
+
+To control test coverage, configure the maven plugin `jacoco` as below:
+
+```xml
+  <build>
+    <finalName>wdemo-be</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>default-check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.55</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+                <rule>
+                  <element>METHOD</element>
+                  <limits>
+                    <limit>
+                      <counter>COMPLEXITY</counter>
+                      <value>TOTALCOUNT</value>
+                      <maximum>25</maximum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+```
 
 ## Consult the analysis report
 
