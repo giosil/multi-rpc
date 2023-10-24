@@ -59,6 +59,15 @@ In the end launch SonarQube analysis:
 
 `mvn clean verify sonar:sonar`
 
+[comment]: mvn2 clean verify sonar:sonar
+
+## Consult the analysis report
+
+![00](sonarqube_00.png)
+![01](sonarqube_01.png)
+![02](sonarqube_02.png)
+![03](sonarqube_03.png)
+
 ## Contributors
 
 * [Giorgio Silvestris](https://github.com/giosil)
