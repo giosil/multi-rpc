@@ -88,10 +88,17 @@ pipeline {
     stages {
         stage('Build') {
            steps {
-               git 'https://github.com/giosil/wcollections.git'
+               // git 'https://github.com/giosil/wcollections.git'
                
-               // bat "mvn clean package"
-               sh "mvn clean package"
+               checkout scm
+               
+               script {
+                  if (isUnix()) {
+                      sh "mvn clean package"
+                  } else {
+                      bat "mvn clean package"
+                  }
+               }
            }
            
            post {
