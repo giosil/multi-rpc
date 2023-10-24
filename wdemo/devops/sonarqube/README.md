@@ -59,7 +59,9 @@ In the end launch SonarQube analysis:
 
 `mvn clean verify sonar:sonar`
 
-[comment]: mvn2 clean verify sonar:sonar
+If you define mvn2 as a well configured mvn:
+
+`mvn2 clean verify sonar:sonar`
 
 ## Consult the analysis report
 
