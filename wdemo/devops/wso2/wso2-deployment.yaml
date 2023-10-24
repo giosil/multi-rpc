@@ -17,7 +17,7 @@ spec:
       containers:
         - name: main
           image: wso2/wso2am
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8280
               protocol: TCP

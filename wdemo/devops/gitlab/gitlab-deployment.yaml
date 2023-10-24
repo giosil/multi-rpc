@@ -24,7 +24,7 @@ spec:
       containers:
         - name: main
           image: gitlab/gitlab-ce:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
               name: http
