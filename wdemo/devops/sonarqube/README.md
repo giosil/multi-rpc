@@ -66,7 +66,7 @@ If you have defined `mvn2` as a well configured `mvn`:
 
 `mvn2 clean verify sonar:sonar`
 
-To control test coverage, configure the maven plugin `jacoco` as below:
+To check test coverage, configure the maven plugin `jacoco` as below:
 
 ```xml
   <build>
