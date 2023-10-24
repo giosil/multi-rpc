@@ -24,14 +24,15 @@ passowrd: admin
 
 ## Maven configuration
 
-First generate a `User token` in:
+First generate a `User token` from:
 
 `http://localhost:9000/account/security`
 
-In $HOME/.m2/settings.xml add:
+In `$HOME/.m2/settings.xml` add:
 
 ```xml
 <settings>
+  
   <pluginGroups>
     <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
   </pluginGroups>
@@ -47,11 +48,13 @@ In $HOME/.m2/settings.xml add:
           http://localhost:9000
         </sonar.host.url>
         <sonar.login>
+          <!-- generated user token -->
           squ_68f0eec6132a9f76af1a437fdaf96fc666970660
         </sonar.login>
       </properties>
     </profile>
   </profiles>
+
 </settings>
 ```
 
