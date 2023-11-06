@@ -10,13 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.xmlrpc.XmlRpcException;
 
+import org.dew.util.RefUtil;
+
 import org.json.JSON;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.rpc.commons.RpcRemoteException;
+
 import org.soap.rpc.SoapRpcContentHandler;
 import org.soap.rpc.server.SoapRpcExecutor;
+
 import org.util.WUtil;
+
 import org.xml.rpc.XmlRpcContentHandler;
 import org.xml.rpc.XmlRpcSerializer;
 
@@ -87,8 +92,7 @@ class MultiRpcExecutor implements RpcExecutor
     if(sContentType != null && sContentType.equals("text/xml")) {
       xmlrpc_execute(requestData, transport);
     }
-    else
-    if(sContentType != null && sContentType.equals("application/soap+xml")) {
+    else if(sContentType != null && sContentType.equals("application/soap+xml")) {
       soaprpc_execute(requestData, transport);
     }
     else {
@@ -166,8 +170,7 @@ class MultiRpcExecutor implements RpcExecutor
         RpcUtil.xmlrpc_sendError(transport, rre.getCode(), rre.getMessage());
         return;
       }
-      else
-      if(t instanceof XmlRpcException) {
+      else if(t instanceof XmlRpcException) {
         XmlRpcException xre = (XmlRpcException) t;
         RpcUtil.xmlrpc_sendError(transport, xre.code, xre.getMessage());
         return;
@@ -220,7 +223,7 @@ class MultiRpcExecutor implements RpcExecutor
       if(tracer != null) tracer.trace(requestData[0], requestData[1], t);
       int errorCode        = PARSE_ERROR_CODE;
       String  errorMessage = "unable to parse json-rpc request";
-      String  errorData    = RpcUtil.getStackTrace(t);
+      String  errorData    = RefUtil.getStackTrace(t);
       RpcUtil.jsonrpc_sendError(transport, resp, errorCode, errorMessage, errorData);
       return;
     }
@@ -241,7 +244,7 @@ class MultiRpcExecutor implements RpcExecutor
       if(tracer != null) tracer.trace(requestData[0], requestData[1], t);
       int     errorCode    = INVALID_REQUEST_ERROR_CODE;
       String  errorMessage = "unable to read request";
-      String  errorData    = RpcUtil.getStackTrace(t);
+      String  errorData    = RefUtil.getStackTrace(t);
       RpcUtil.jsonrpc_sendError(transport, resp, errorCode, errorMessage, errorData);
       return;
     }
@@ -260,15 +263,14 @@ class MultiRpcExecutor implements RpcExecutor
         RpcUtil.jsonrpc_sendError(transport, resp, jrre.getCode(), jrre.getMessage(), jrre.getData());
         return;
       }
-      else
-      if(t instanceof XmlRpcException) {
+      else if(t instanceof XmlRpcException) {
         XmlRpcException xre = (XmlRpcException) t;
         RpcUtil.jsonrpc_sendError(transport, resp, xre.code, xre.getMessage(), null);
         return;
       }
       int errorCode       = SERVER_ERROR_START - 1;
       String errorMessage = t.getMessage();
-      String errorData    = RpcUtil.getStackTrace(t);
+      String errorData    = RefUtil.getStackTrace(t);
       RpcUtil.jsonrpc_sendError(transport, resp, errorCode, errorMessage, errorData);
       return;
     }
@@ -335,8 +337,7 @@ class MultiRpcExecutor implements RpcExecutor
         RpcUtil.soaprpc_sendError(transport, rre.getCode(), rre.getMessage(), rre.getData());
         return;
       }
-      else
-      if(t instanceof XmlRpcException) {
+      else if(t instanceof XmlRpcException) {
         XmlRpcException xre = (XmlRpcException) t;
         RpcUtil.soaprpc_sendError(transport, xre.code, xre.getMessage(), null);
         return;

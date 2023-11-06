@@ -33,10 +33,11 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.dew.util.RefUtil;
+
 import org.json.JSON;
 import org.json.JSONObject;
 
-import org.rpc.server.RpcUtil;
 import org.rpc.util.Mapable;
 
 @SuppressWarnings({"rawtypes","unchecked"})
@@ -2205,7 +2206,7 @@ class WUtil
             }
             else {
               params.set(0, mapValues.get(key));
-              Object[] parameters = RpcUtil.getParametersExt(method, params);
+              Object[] parameters = RefUtil.getParametersExt(method, params);
               if(parameters == null) continue;
               method.invoke(bean, parameters);
             }

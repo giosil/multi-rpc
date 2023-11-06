@@ -22,14 +22,18 @@ import java.util.Map;
 
 import org.apache.xmlrpc.XmlRpcException;
 
+import org.dew.util.RefUtil;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.rpc.commons.RpcRemoteException;
+
 import org.rpc.server.RpcAudit;
 import org.rpc.server.RpcExecutor;
 import org.rpc.server.RpcServerTransport;
 import org.rpc.server.RpcTracer;
 import org.rpc.server.RpcUtil;
+
 import org.util.WUtil;
 
 @SuppressWarnings({"rawtypes","unchecked"})
@@ -115,7 +119,7 @@ class JsonRpcExecutor implements RpcExecutor
       if(tracer != null) tracer.trace(requestData[0], requestData[1], t);
       int errorCode        = PARSE_ERROR_CODE;
       String  errorMessage = "unable to parse json-rpc request";
-      String  errorData    = RpcUtil.getStackTrace(t);
+      String  errorData    = RefUtil.getStackTrace(t);
       RpcUtil.jsonrpc_sendError(transport, resp, errorCode, errorMessage, errorData);
       return;
     }
@@ -136,7 +140,7 @@ class JsonRpcExecutor implements RpcExecutor
       if(tracer != null) tracer.trace(requestData[0], requestData[1], t);
       int     errorCode    = INVALID_REQUEST_ERROR_CODE;
       String  errorMessage = "unable to read request";
-      String  errorData    = RpcUtil.getStackTrace(t);
+      String  errorData    = RefUtil.getStackTrace(t);
       RpcUtil.jsonrpc_sendError(transport, resp, errorCode, errorMessage, errorData);
       return;
     }
@@ -163,7 +167,7 @@ class JsonRpcExecutor implements RpcExecutor
       }
       int errorCode       = SERVER_ERROR_START - 1;
       String errorMessage = t.getMessage();
-      String errorData    = RpcUtil.getStackTrace(t);
+      String errorData    = RefUtil.getStackTrace(t);
       RpcUtil.jsonrpc_sendError(transport, resp, errorCode, errorMessage, errorData);
       return;
     }
