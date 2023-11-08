@@ -134,8 +134,7 @@ class RpcUtil
         sLocation += "/" + sServletPath;
       }
     }
-    else
-    if(sLocation.endsWith("*")) {
+    else if(sLocation.endsWith("*")) {
       sLocation = sLocation.substring(0, sLocation.length()-1);
       if(sLocation.endsWith("/")) sLocation = sLocation.substring(0, sLocation.length()-1);
       String sCtxPath     = request.getContextPath();

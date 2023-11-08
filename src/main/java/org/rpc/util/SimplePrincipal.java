@@ -42,16 +42,14 @@ class SimplePrincipal implements Principal, Serializable
   public boolean equals(Object object) {
     if(object instanceof Principal) {
       String sName = ((Principal) object).getName();
-      if(sName == null && name == null)
-      return true;
+      if(sName == null && name == null) return true;
       return sName != null && sName.equals(name);
     }
     return false;
   }
   
   public int hashCode() {
-    if(name == null)
-    return 0;
+    if(name == null) return 0;
     return name.hashCode();
   }
   
