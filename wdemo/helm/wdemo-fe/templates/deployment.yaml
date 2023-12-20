@@ -27,8 +27,13 @@ spec:
       serviceAccountName: {{ include "wdemo-fe.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.persistenceVolume.enabled }}
       volumes:
+      {{- if .Values.volConfigMap.enabled }}
+        - name: {{ include "wdemo-fe.fullname" . }}-cm-vol
+          configMap:
+            name: {{ include "wdemo-fe.fullname" . }}-cmv
+      {{- end }}
+      {{- if .Values.persistenceVolume.enabled }}
         - name: {{ include "wdemo-fe.fullname" . }}-vol
           persistentVolumeClaim:
             claimName: {{ include "wdemo-fe.fullname" . }}-pvc
