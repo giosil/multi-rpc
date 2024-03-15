@@ -31,6 +31,8 @@ Launch:
 
 ## Publish on WSO2
 
+- `git clone https://github.com/giosil/devops.git`
+
 - `cd wso2`
 - `kubectl apply -f wso2.yaml`
 
