@@ -217,10 +217,6 @@ public class Test {
 - `git clone https://github.com/giosil/multi-rpc.git`
 - `mvn clean install`
 
-or
-
-- `mvn -f .\pom-giosil.xml clean install -DcreateChecksum=true`
-
 ## Publish to maven central
 
 1. Create an account on https://central.sonatype.com;
@@ -237,9 +233,9 @@ or
 	
 	3.2 Distributing your Public Key:
 	
-		`gpg --keyserver keyserver.ubuntu.com --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
-		`gpg --keyserver keys.openpgp.org --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
-		`gpg --keyserver pgp.mit.edu --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
+		`gpg --keyserver keyserver.ubuntu.com --send-keys 6B79F0BC81328E1C07EF79A5090B44F4D0F7C43F`
+		`gpg --keyserver keys.openpgp.org --send-keys 6B79F0BC81328E1C07EF79A5090B44F4D0F7C43F`
+		`gpg --keyserver pgp.mit.edu --send-keys 6B79F0BC81328E1C07EF79A5090B44F4D0F7C43F`
 
 4. Requirements your deployment components (view `pom-giosil.xml`):
 
@@ -252,6 +248,12 @@ or
 	4.4 Sufficient Metadata in `pom.xml` (project name/description/url, licenses, developers, scm);
 	
 	4.5 `groupId` is the `namespace` verified.
+
+5. Build library `mvn -f .\pom-giosil.xml clean install -DcreateChecksum=true`;
+
+6. Create zip file (e.g. `io/github/giosil/multi-rpc` from `$HOME/.m2/repository`);
+
+7. Upload zip file from the page `https://central.sonatype.com/publishing/deployments`.
 
 ## Contributors
 
