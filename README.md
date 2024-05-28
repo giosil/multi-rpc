@@ -228,26 +228,24 @@ or
 2. Create a `namespace` (`groupId`): e.g. io.github.giosil;
 
 	2.1 To verify a `namespace` with github (by Code Hosting Services) you must create the public repository (e.g. github.com/giosil/verification-key)
-	
 	2.2 At the end of the process when your `namespace` (`groupId`) is registered you can simply delete the empty repository.
 
-3. Installing GnuPG from https//www.gnupg.org/download;
+3. Installing GnuPG from https://www.gnupg.org/download;
 
 	3.1 Generating a Key Pair with `gpg --gen-key`;
-	
 	3.2 Distributing your Public Key:
 	
-		- `gpg --keyserver keyserver.ubuntu.com --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
-		- `gpg --keyserver keys.openpgp.org --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
-		- `gpg --keyserver pgp.mit.edu --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
+		`gpg --keyserver keyserver.ubuntu.com --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
+		`gpg --keyserver keys.openpgp.org --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
+		`gpg --keyserver pgp.mit.edu --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`
 
 4. Requirements your deployment components (view `pom-giosil.xml`):
 
-	- Supply Javadoc and Sources;
-	- Provide Files Checksums (md5 and sha1);
-	- Sign Files with GPG/PGP;
-	- Sufficient Metadata (project name/description/url, licenses, developers, scm);
-	- `groupId` match `namespace` verified.
+	4.1 Supply Javadoc and Sources;
+	4.2 Provide Files Checksums (md5 and sha1);
+	4.3 Sign Files with GPG/PGP (asc);
+	4.4 Sufficient Metadata in `pom.xml` (project name/description/url, licenses, developers, scm);
+	4.5 `groupId` is the `namespace` verified.
 
 ## Contributors
 
