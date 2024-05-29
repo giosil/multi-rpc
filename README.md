@@ -251,7 +251,7 @@ public class Test {
 
 5. Build library `mvn -f .\pom-giosil.xml clean install -DcreateChecksum=true`;
 
-6. Create zip file (e.g. `io/github/giosil/multi-rpc` from `$HOME/.m2/repository`);
+6. Create zip file (e.g. `io/github/giosil/multi-rpc` from `$HOME/.m2/repository`, delete `_remote.repositories`);
 
 7. Upload zip file from the page `https://central.sonatype.com/publishing/deployments`.
 
