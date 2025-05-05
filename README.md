@@ -2,6 +2,38 @@
 
 An easy to use library for json-rpc, xml-rpc, SOAP and RESTful/JSONP services implementation.
 
+## Add as dependency
+
+Java 1.6+
+
+```xml
+<dependency>
+    <groupId>io.github.giosil</groupId>
+    <artifactId>multi-rpc</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Java 1.8+
+
+```xml
+<dependency>
+    <groupId>io.github.giosil</groupId>
+    <artifactId>multi-rpc</artifactId>
+    <version>2.0.0</version>
+</dependency>
+```
+
+Java 11+, Jakarta EE (javax.* -> jakarta.*)
+
+```xml
+<dependency>
+    <groupId>io.github.giosil</groupId>
+    <artifactId>multi-rpc</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
 ## Examples
 
 ### Service
